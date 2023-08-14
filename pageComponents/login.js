@@ -1,12 +1,16 @@
+// React and React Native
 import React, {useState, useContext} from "react";
 import { View, TextInput } from 'react-native';
 import { NativeBaseProvider, Box, Heading, VStack, FormControl, Center, Button, HStack, Text, Link, Input } from "native-base"; // Import NativeBase components
 import { useNavigation } from "@react-navigation/native";
-
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { UserContext } from "../context/userContext";
-import APIHandler, { clearAuthHeader, setAuthHeader } from "../APIHandler";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
+// Context
+import { UserContext } from "../context/userContext";
+
+// Firebase
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import APIHandler, { clearAuthHeader, setAuthHeader } from "../APIHandler";
 
 export default function Login (){
 

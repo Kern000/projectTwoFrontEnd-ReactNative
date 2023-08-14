@@ -1,16 +1,16 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const headersData = {}
+const headersData = {};
 
 // set Header based on token received from firebase
 
 if (AsyncStorage.getItem("token")) {
-    headersData["Authorization"] = `Bearer ${AsyncStorage.getItem("token")}`
+    headersData["Authorization"] = `Bearer ${AsyncStorage.getItem("token")}`;
 }
 
 if (AsyncStorage.getItem("uid")) {
-    headersData["uid"] = AsyncStorage.getItem("uid")
+    headersData["uid"] = AsyncStorage.getItem("uid");
 }
 
 const APIHandler = axios.create({

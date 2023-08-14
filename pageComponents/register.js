@@ -3,6 +3,7 @@ import React, {useState, useContext} from "react";
 import { View, TextInput } from 'react-native';
 import { NativeBaseProvider, Box, Heading, VStack, FormControl, Center, Button, HStack, Text, Link, Input } from "native-base"; // Import NativeBase components
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Firebase
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
@@ -12,7 +13,6 @@ import { UserContext } from "../context/userContext";
 
 // Frontend interaction with backend API endpoint
 import APIHandler, { clearAuthHeader, setAuthHeader } from "../APIHandler";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Example() {
 
