@@ -43,7 +43,7 @@ export default function Example() {
   
   // DOM
   const updateFormField = (event) => {
-    let dataToUpdate = {[event.target.name]: event.target.value};
+    let dataToUpdate = {[event.target.name]: event.nativeEvent.text};
     setUserFormData({...userFormData,...dataToUpdate});
   }
 

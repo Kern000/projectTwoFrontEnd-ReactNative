@@ -4,18 +4,15 @@ export const SettingsContext = createContext();
 
 const SettingsContextData = ({children}) => {
 
-    const [settingsFormData, setSettingsFormData] = useState({});
-    const [countryCode, setCountryCode] = useState([]);
+    const [countryCode, setCountryCode] = useState('');
     const [hpNumber, setHpNumber] = useState('');
     const [officeNumber, setOfficeNumber] = useState('');
     const [homeNumber, setHomeNumber] = useState('');
-    const [blockedNumbers, setBlockedNUmbers] = useState([]);
+    const [blockedNumbers, setBlockedNumbers] = useState([]);
     const [whiteList, setWhiteList] = useState([]);
 
     const contextValue = useMemo(()=>{
         return({       
-            settingsFormData,
-            setSettingsFormData,
             countryCode,
             setCountryCode,
             hpNumber,
@@ -25,13 +22,11 @@ const SettingsContextData = ({children}) => {
             homeNumber,
             setHomeNumber,
             blockedNumbers,
-            setBlockedNUmbers,
+            setBlockedNumbers,
             whiteList,
             setWhiteList
         })
     },  [
-            settingsFormData,
-            setSettingsFormData,
             countryCode,
             setCountryCode,
             hpNumber,
@@ -41,7 +36,7 @@ const SettingsContextData = ({children}) => {
             homeNumber,
             setHomeNumber,
             blockedNumbers,
-            setBlockedNUmbers,
+            setBlockedNumbers,
             whiteList,
             setWhiteList
         ]

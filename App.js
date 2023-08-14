@@ -18,6 +18,7 @@ import Register from './pageComponents/register';
 import Settings from './pageComponents/settings';
 import BlockedNumbers from './pageComponents/blockedNumbers';
 import WhiteList from './pageComponents/whiteList';
+import CountryCode from './pageComponents/countryCodeWhiteList';
 import UserContextData from './context/userContext';
 import SettingsContextData from './context/settingsContext';
 
@@ -53,6 +54,7 @@ export default function App() {
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="Register" component={Register} />
             <Stack.Screen name="Settings" component={Settings} />
+            <Stack.Screen name="CountryCode" component={CountryCode} />
             <Stack.Screen name="BlockedNumbers" component={BlockedNumbers} />
             <Stack.Screen name="WhiteList" component={WhiteList} />
           </Stack.Navigator>
