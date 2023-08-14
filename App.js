@@ -16,7 +16,10 @@ import MainPage from './pageComponents/mainPage';
 import Login from './pageComponents/login';
 import Register from './pageComponents/register';
 import Settings from './pageComponents/settings';
+import BlockedNumbers from './pageComponents/blockedNumbers';
+import WhiteList from './pageComponents/whiteList';
 import UserContextData from './context/userContext';
+import SettingsContextData from './context/settingsContext';
 
 const Stack = createStackNavigator();                       //defined outside to prevent rerender
 
@@ -42,15 +45,19 @@ export default function App() {
 
   return (
     <UserContextData>
-      <NavigationContainer>      
-        <Stack.Navigator initialRouteName="LandingPage">
-          <Stack.Screen name="LandingPage" component={LandingPage} />
-          <Stack.Screen name="MainPage" component={MainPage} />
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Register" component={Register} />
-          <Stack.Screen name="Settings" component={Settings} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <SettingsContextData>
+        <NavigationContainer>      
+          <Stack.Navigator initialRouteName="LandingPage">
+            <Stack.Screen name="LandingPage" component={LandingPage} />
+            <Stack.Screen name="MainPage" component={MainPage} />
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="Register" component={Register} />
+            <Stack.Screen name="Settings" component={Settings} />
+            <Stack.Screen name="BlockedNumbers" component={BlockedNumbers} />
+            <Stack.Screen name="WhiteList" component={WhiteList} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </SettingsContextData>
     </UserContextData>
   );
 }
