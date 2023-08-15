@@ -10,15 +10,17 @@ import { initializeApp } from 'firebase/app';                 // initializeApp d
 import 'firebase/auth';                                     // on global level, import firebase functionality
 import firebaseConfig from './firebaseConfig';
 
-// Components
-import LandingPage from './pageComponents/landingPage';
-import MainPage from './pageComponents/mainPage';
-import Login from './pageComponents/login';
-import Register from './pageComponents/register';
-import Settings from './pageComponents/settings';
-import BlockedNumbers from './pageComponents/blockedNumbers';
-import WhiteList from './pageComponents/whiteList';
-import CountryCode from './pageComponents/countryCodeWhiteList';
+// Pages
+import LandingPage from './pages/landingPage';
+import MainPage from './pages/mainPage';
+import Login from './pages/login';
+import Register from './pages/register';
+import Settings from './pages/settings';
+import BlockedNumbers from './pages/blockedNumbers';
+import WhiteList from './pages/whiteList';
+import CountryCode from './pages/countryCodeWhiteList';
+
+// Context
 import UserContextData from './context/userContext';
 import SettingsContextData from './context/settingsContext';
 

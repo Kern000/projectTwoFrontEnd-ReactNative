@@ -58,7 +58,7 @@ export default function Example() {
         const paramsId = response.data;
         setParamsId(paramsId);
         AsyncStorage.setItem("emailAddress", emailAddress);
-        navigateToSettings()
+        navigateToSettings();
     }).catch((error) => {
         console.log('/user/register encountered error', error);
         clearAuthHeader();

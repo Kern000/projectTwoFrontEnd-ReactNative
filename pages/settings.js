@@ -150,7 +150,7 @@ export default function Settings (){
                                     <TextInput  name="hpNumber"
                                                 value={hpNumber}
                                                 onChangeText={event=> setHpNumber(event.nativeEvent.text)}
-                                                />
+                                    />
                                 </VStack>
                             </FormControl>
                             
@@ -205,14 +205,16 @@ export default function Settings (){
                                         </Button>
                                 </VStack>
                             </FormControl>
-
+                            <VStack>
+                                {countryCodeError}
+                                {phoneNumberError}
+                            </VStack>
                             <Button w="80%"
                                     onPress={saveSettings}
                             >
                                 Save Settings and Return
                             </Button>
-                            {countryCodeError}
-                            {phoneNumberError}
+
                         </VStack>
                     </ScrollView>
                 </Box>

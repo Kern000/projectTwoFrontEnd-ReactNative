@@ -1,7 +1,7 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const headersData = {};
+let headersData = {};
 
 // set Header based on token received from firebase
 

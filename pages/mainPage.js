@@ -3,7 +3,7 @@ import {  StatusBar } from 'expo-status-bar';
 import {  StyleSheet, 
           SafeAreaView,
           Platform } from 'react-native';
-import MainButton from "./mainButton";
+import MainButton from "../components/mainButton";
 
 export default function MainPage () {
     
