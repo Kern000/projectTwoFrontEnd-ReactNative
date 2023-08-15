@@ -1,5 +1,11 @@
-import axios from 'axios';
+// React
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// API
+import axios from 'axios';
+
+// .env for API and Firebase
+import Config from 'react-native-config';
 
 let headersData = {};
 
@@ -14,7 +20,7 @@ if (AsyncStorage.getItem("uid")) {
 }
 
 const APIHandler = axios.create({
-    baseURL: process.env.REACT_APP_API_BASE_URL,
+    baseURL: Config.REACT_APP_API_BASE_URL,
     headers: headersData
 })
 

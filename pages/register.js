@@ -1,53 +1,32 @@
-// React and React Native
 import React, {useState, useContext} from "react";
 import { View, TextInput } from 'react-native';
 import { NativeBaseProvider, Box, Heading, VStack, FormControl, Center, Button, HStack, Text, Link, Input } from "native-base"; // Import NativeBase components
-import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { navigateToLogin, navigateToSettings, goBack } from "../navigation";
 
-// Firebase
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
-// Context
 import { UserContext } from "../context/userContext";
 
-// Frontend interaction with backend API endpoint
 import APIHandler, { clearAuthHeader, setAuthHeader } from "../APIHandler";
 
 export default function Example() {
 
-  // Context
   const { setUserName, setParamsId } = useContext(UserContext);
+  const [ userFormData, setUserFormData ] = useState('');
+  const [ errorNotification, setErrorNotification ] = useState('');            
 
-  // State
-  const [userFormData, setUserFormData] = useState('');
-  const [errorNotification, setErrorNotification] = useState('');
-            
-  // navigate
-  const navigation = useNavigation();
-
-  const navigateToLogin = () => {
-    navigation.navigate('Login');
-  }
-
-  const navigateToSettings = () => {
-      navigation.navigate('Settings');
-  }
-
-  // validation
   const emailValidationRegex = /^[a-zA-Z0-9._+-]+@[a-zA-Z.-]+\.[A-Za-z]{2,}$/;
   
   const validatedEmail = (emailAddress) => {
     return emailValidationRegex.test(emailAddress);
   }
   
-  // DOM
   const updateFormField = (event) => {
     let dataToUpdate = {[event.target.name]: event.nativeEvent.text};
     setUserFormData({...userFormData,...dataToUpdate});
   }
 
-  // Handle Authorization
   const handleSuccessfulRegistration = (uid, emailAddress, idToken) => {
 
     setAuthHeader(uid, idToken);
@@ -67,12 +46,12 @@ export default function Example() {
 
   const submitRegistrationForm = (event) => {
         
-    event.preventDefault();         //only want to change page when auth
-    setErrorNotification('');       //refresh error state on each user attempt
+    event.preventDefault();                                           //only want to change page when auth
+    setErrorNotification('');                                         //refresh error state on each user attempt
     
     const {emailAddress, password, passwordConfirmation} = userFormData;
 
-    if (!validatedEmail(emailAddress)) {        //the if is looking when it is false, so !false = positive, it gets executed
+    if (!validatedEmail(emailAddress)) {
       setErrorNotification("Enter valid email");
       return;
     }
@@ -82,13 +61,13 @@ export default function Example() {
       return;
     }
 
-    const auth = getAuth();                     // initialize Auth instance of firebase
+    const auth = getAuth();
 
     createUserWithEmailAndPassword(auth, emailAddress, password)
     .then(async(userCredential) => {
             const user = userCredential.user;
             const idToken = await user.getIdToken();
-            handleSuccessfulRegistration(user.uid, user.email, idToken)    //note that firebase object is user.email, though in local case we will use emailAddress
+            handleSuccessfulRegistration(user.uid, user.email, idToken)       //firebase is user.email
     })
     .catch((error) => {
         console.log("Firebase Error:", error.code, error.message);
@@ -97,6 +76,19 @@ export default function Example() {
       
   return (
             <NativeBaseProvider>
+              <View>
+                <Link _text={{
+                                color: 'blue',
+                                bold: true,
+                                fontSize: 'sm'
+                            }} 
+                      href="#"
+                      onPress={goBack}
+                >
+                  Previous Page
+                </Link>
+              </View>
+
               <Center flex={1} px="3">
                 <Box safeArea flex={1} p={2} w="90%" mx="auto">
                   <Heading size="lg" color="primary.500">

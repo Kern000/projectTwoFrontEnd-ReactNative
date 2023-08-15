@@ -8,6 +8,8 @@
 //             whiteList,
 //             setWhiteList
 //     } = useContext(SettingsContextData)
+// navigation.goBack()
+
 
 //     const [blockedNumberToAdd, setBlockedNumberToAdd] = useState('');
 //     const [whiteListToAdd, setWhiteListToAdd] = useState('');

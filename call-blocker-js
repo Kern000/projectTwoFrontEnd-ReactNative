@@ -1,0 +1,242 @@
+// First, you have to understand the life cycle of the app in both iOS and Android. In general,
+
+// Not running
+// Inactive
+// active
+// background
+// foreground
+// suspended
+// killed/terminated
+// In view of these life cycle, you have to handle the state by storing the state when the app enters background. When the app enters background, Garbage Collection may happen to kill your resources so that other app can have the resources to run. If you do not handle the state, the App will get into a confused or crashed state when the app finally returns back to foreground. In RN, there is this library to handle states - https://reactnative.dev/docs/appstate
+
+
+
+// import { useEffect } from 'react';
+// import { AppState } from 'react-native';
+// import CallDetectorManager from 'react-native-call-detection'; // For Android call detection
+// import { useDispatch, useSelector } from 'react-redux';
+// import { setIncomingCall } from './redux/actions';
+
+// const App = () => {
+//   const dispatch = useDispatch();
+//   const whitelist = useSelector((state) => state.contact.whitelist);
+//   const blacklist = useSelector((state) => state.contact.blacklist);
+
+//   useEffect(() => {
+//     const callDetector = new CallDetectorManager(
+//       (event, number) => {
+//         if (event === 'Incoming') {
+//           if (whitelist.includes(number)) {
+//             // Accept the call
+//           } else if (blacklist.includes(number)) {
+//             // Reject the call or send it to voicemail
+//           } else {
+//             // Show notification and let the user decide
+//           }
+//         }
+//       },
+//       true // Enable background detection (Android)
+//     );
+
+//     return () => {
+//       callDetector.dispose();
+//     };
+//   }, [whitelist, blacklist]);
+
+//   // ...
+
+// };
+
+
+
+// import { useEffect } from 'react';
+// import { AppState } from 'react-native';
+// import CallDetectorManager from 'react-native-call-detection'; // For Android call detection
+// import { useDispatch, useSelector } from 'react-redux';
+// import { setIncomingCall } from './redux/actions';
+
+// const App = () => {
+//   const dispatch = useDispatch();
+//   const whitelist = useSelector((state) => state.contact.whitelist);
+//   const blacklist = useSelector((state) => state.contact.blacklist);
+
+//   useEffect(() => {
+//     const callDetector = new CallDetectorManager(
+//       (event, number) => {
+//         if (event === 'Incoming') {
+//           if (whitelist.includes(number)) {
+//             // Accept the call
+//           } else if (blacklist.includes(number)) {
+//             // Reject the call or send it to voicemail
+//           } else {
+//             // Show notification and let the user decide
+//           }
+//         }
+//       },
+//       true // Enable background detection (Android)
+//     );
+
+//     return () => {
+//       callDetector.dispose();
+//     };
+//   }, [whitelist, blacklist]);
+
+//   // ...
+
+// };
+
+
+
+
+
+// Incoming Call Event:
+// When an incoming call event occurs, you can send a push notification to the user's device. This push notification contains information about the call or event.
+
+// Push Notification:
+// When the user receives the push notification, they can interact with it by tapping on it. Tapping on the notification can open your app.
+// Firebase Cloud Messaging
+
+// App Opening:
+// When the user opens the app from the notification, you can use event listeners, Redux, or background fetch to handle the incoming call event and update the app's state.
+
+
+// import { useEffect } from 'react';
+// import { AppState } from 'react-native';
+// import PushNotification from 'react-native-push-notification';
+// import { useDispatch } from 'react-redux';
+// import { setIncomingCall } from './redux/actions'; // Import your Redux action
+
+// const App = () => {
+//   const dispatch = useDispatch();
+
+//   useEffect(() => {
+//     // Configure push notification settings
+//     PushNotification.configure({
+//       onNotification: (notification) => {
+//         // Handle the incoming push notification
+//         dispatch(setIncomingCall());
+
+//         // Automatically wake up the app (iOS)
+//         if (notification?.data?.contentAvailable) {
+//           AppState.addEventListener('change', handleAppStateChange);
+//         }
+//       },
+//     });
+
+//     return () => {
+//       AppState.removeEventListener('change', handleAppStateChange);
+//     };
+//   }, [dispatch]);
+
+//   const handleAppStateChange = (newState) => {
+//     if (newState === 'active') {
+//       // App became active (foreground)
+//       // Handle the incoming call event or update UI
+//     }
+//   };
+
+//   // ...
+
+// };
+
+
+
+
+// import { AppState } from 'react-native';
+
+// const App = () => {
+//   const handleAppStateChange = (newState) => {
+//     switch (newState) {
+//       case 'active':
+//         // App became active (foreground)
+//         // Implement behavior for active state
+//         break;
+//       case 'background':
+//         // App moved to the background
+//         // Implement behavior for background state
+//         break;
+//       case 'inactive':
+//         // App is in an inactive state (suspended)
+//         // Implement behavior for inactive state
+//         break;
+//       default:
+//         // Other states
+//         break;
+//     }
+//   };
+
+//   useEffect(() => {
+//     AppState.addEventListener('change', handleAppStateChange);
+
+//     return () => {
+//       AppState.removeEventListener('change', handleAppStateChange);
+//     };
+//   }, []);
+
+//   // ...
+
+// };
+
+// //
+
+
+// import { AppState } from 'react-native';
+
+// const App = () => {
+//   const handleAppStateChange = (newState) => {
+//     if (newState === 'active') {
+//       // App became active (foreground)
+//       // Handle incoming call event here
+//     }
+//   };
+
+//   useEffect(() => {
+//     AppState.addEventListener('change', handleAppStateChange);
+
+//     return () => {
+//       AppState.removeEventListener('change', handleAppStateChange);
+//     };
+//   }, []);
+
+//   // ...
+// };
+
+
+
+// // Redux action types
+// const SET_INCOMING_CALL = 'SET_INCOMING_CALL';
+// const CLEAR_INCOMING_CALL = 'CLEAR_INCOMING_CALL';
+
+// // Redux actions
+// const setIncomingCall = () => ({ type: SET_INCOMING_CALL });
+// const clearIncomingCall = () => ({ type: CLEAR_INCOMING_CALL });
+
+// // Redux reducer
+// const initialState = {
+//   incomingCall: false,
+// };
+
+// const appReducer = (state = initialState, action) => {
+//   switch (action.type) {
+//     case SET_INCOMING_CALL:
+//       return { ...state, incomingCall: true };
+//     case CLEAR_INCOMING_CALL:
+//       return { ...state, incomingCall: false };
+//     default:
+//       return state;
+//   }
+// };
+
+// // Redux store setup
+// const store = createStore(appReducer);
+
+// // ...
+
+// // Dispatching actions based on incoming call events
+// if (/* Incoming call event */) {
+//   store.dispatch(setIncomingCall());
+// }
+
+// if (/* Call ended */) {
+//   store.dispatch(clearIncomingCall());
+// }

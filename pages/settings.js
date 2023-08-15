@@ -1,24 +1,20 @@
-// React and React Native
 import React, {useState, useContext} from 'react';
 import { ScrollView, Text, TextInput } from 'react-native';
 import { NativeBaseProvider, Box, VStack, HStack, FormControl, Button } from 'native-base';
-import { useNavigation } from '@react-navigation/native';
+import { navigateToMain, 
+         navigateToCountryCode, 
+         navigateToBlockedNumbers, 
+         navigateToWhiteList } from '../navigation';
 
-// API interaction
 import APIHandler from '../APIHandler';
 
-// Context
 import { UserContext } from '../context/userContext';
 import { SettingsContext } from '../context/settingsContext';
 
+import { settingsStyle } from '../styles';
+
 export default function Settings (){
 
-    // Utility
-    const validateCountryCode = /^[a-zA-Z0-9+ -]{0,8}$/;
-
-    const validatePhoneNumber = /^[0-9+ -]{0,15}$/;
-
-    // Context
     const { paramsId } = useContext(UserContext);
     const { countryCode,
             setCountryCode,
@@ -34,14 +30,15 @@ export default function Settings (){
     const [countryCodeError, setCountryCodeError] = useState('');
     const [phoneNumberError, setPhoneNumberError] = useState('');
     
-    // State Change for array
     const updateCountryCode = () => {
         setCountryCode(
             [...countryCode, countryCodeToAdd]
         )
     }
 
-    // Save to Settings to Database
+    const validateCountryCode = /^[a-zA-Z0-9+ -]{0,8}$/;
+    const validatePhoneNumber = /^[0-9+ -]{0,15}$/;
+
     const saveSettings = async() => {        
         try{
             const countryCodeValidation = validateCountryCode.test(countryCode);
@@ -76,34 +73,13 @@ export default function Settings (){
                 setPhoneNumberError('invalid home number');
                 return;
             }
-            navigation.navigate("MainPage");
+            navigateToMain();
 
         } catch(error) {
             console.error('cannot save data', error)
             throw new error;
         }
     }
-
-    // Navigation
-    const navigation = useNavigation();
-
-    const navigateToCountryCode = () => {
-        navigation.navigate('CountryCode')
-    }
-    const navigateToBlockedNumbers = () => {
-        navigation.navigate('BlockedNumbers')
-    }
-    const navigateToWhiteList = () => {
-        navigation.navigate('WhiteList')
-    }
-
-    // Styling
-    const settingsStyle = StyleSheet.create({
-        title:  {
-                    color: 'black',
-                    fontSize: 10
-                }
-    })
 
     // 
     return (

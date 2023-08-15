@@ -41,9 +41,9 @@ export default function App() {
       })
       console.log('component did mount, fonts loaded')
     }
-    loadFonts()                         // load fonts
+    loadFonts();
   }
-  ,[]                                   // when component mounted
+  ,[]
   );
 
   return (
@@ -65,5 +65,3 @@ export default function App() {
     </UserContextData>
   );
 }
-
-// UserContextData will pass in userName state and setUserName method

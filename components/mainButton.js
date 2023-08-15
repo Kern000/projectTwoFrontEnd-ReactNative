@@ -1,54 +1,12 @@
 import React, {useState} from 'react';
-import { StyleSheet, Text, TouchableHighlight } from 'react-native';
+import { Text, TouchableHighlight } from 'react-native';
 import { Heading, Button, Divider, Center, ScrollView, VStack, NativeBaseProvider } from 'native-base';
-import { useNavigation } from '@react-navigation/native';
+import { mainButtonStyle } from '../styles';
+import { navigateToLogin } from '../navigation';
 
 export default function MainButton(){
 
     const [mainSwitch, setMainSwitch] = useState(false);
-
-    const navigation = useNavigation();
-
-    const navigateToLogin = () => {
-        navigation.navigate('Login');
-    }
-
-    const mainButtonStyle= StyleSheet.create({
-
-        title:              {
-                                color: 'white',
-                                fontFamily: 'Montserrat-SemiBold',
-                                textAlign: 'center'
-                            },
-        roundButton:        {
-                                borderRadius: 50,
-                                paddingHorizontal: 20,
-                                paddingVertical: 20,
-                                backgroundColor: mainSwitch ? '#32CD32' : '#7F00FF',
-                                flexWrap: 'wrap',
-                                alignItems: 'center',
-                                justifyContent: 'center'
-                            },
-        buttonText:         {
-                                fontWeight: 'bold',
-                                color: 'white',
-                                fontFamily: 'Montserrat-SemiBold',
-                                textAlign: 'center'
-                            },
-        settingsButton:     {
-                                width: 250,
-                                height: 120,
-                                backgroundColor: '#E5E4E2',
-                                flexWrap: 'Wrap',
-                                alignItems: 'center',
-                                justifyContent: 'center'
-                            },
-        settingsButtonText: {
-                                color: '#6082B6',
-                                fontFamily: 'Montserrat-SemiBold',
-                                textAlign: 'center'
-                            }
-    })
 
     const toggleSwitch = () => {
         setMainSwitch(!mainSwitch)
