@@ -14,6 +14,6 @@ export default function MainPage () {
                         barStyle={Platform.OS ==='android'? 'white': 'gray'}
             />
             <MainButton />
-        </SafeAreaView> 
+        </SafeAreaView>
     )    
 }

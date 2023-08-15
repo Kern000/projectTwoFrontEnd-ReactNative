@@ -47,28 +47,28 @@ export default function Settings (){
             const homeNumberValidation = validatePhoneNumber.test(homeNumber);
 
             if (countryCodeValidation){
-                await APIHandler.patch(`user/${paramsId}/countryCode`, countryCode);
+                await APIHandler.patch(`entry/${paramsId}/countryCode`, countryCode);
             } else {
                 setCountryCodeError('invalid country code');
                 return;
             }
             
             if (hpNumberValidation) {
-                await APIHandler.patch(`user/${paramsId}/hpNumber`, hpNumber);
+                await APIHandler.patch(`entry/${paramsId}/hpNumber`, hpNumber);
             } else {
                 setPhoneNumberError('invalid hp number');
                 return;
             }
 
             if (officeNumberValidation){
-                await APIHandler.patch(`user/${paramsId}/officeNumber`, officeNumber);
+                await APIHandler.patch(`entry/${paramsId}/officeNumber`, officeNumber);
             } else {
                 setPhoneNumberError('invalid office number');
                 return;
             }
 
             if (homeNumberValidation) {
-                await APIHandler.patch(`user/${paramsId}/homeNumber`, homeNumber);
+                await APIHandler.patch(`entry/${paramsId}/homeNumber`, homeNumber);
             } else {
                 setPhoneNumberError('invalid home number');
                 return;
@@ -117,7 +117,6 @@ export default function Settings (){
                                     </HStack>
                                 </VStack>
                             </FormControl>
-
                             <FormControl>
                                 <VStack>
                                     <FormControl.Label>
@@ -129,7 +128,6 @@ export default function Settings (){
                                     />
                                 </VStack>
                             </FormControl>
-                            
                             <FormControl>
                                 <VStack>
                                     <FormControl.Label>
@@ -141,7 +139,6 @@ export default function Settings (){
                                                 />
                                 </VStack>
                             </FormControl>
-                            
                             <FormControl>
                                 <VStack>
                                     <FormControl.Label>
@@ -153,7 +150,6 @@ export default function Settings (){
                                                 />
                                 </VStack>
                             </FormControl>
-
                             <FormControl>
                                 <VStack>
                                     <FormControl.Label>
@@ -167,7 +163,6 @@ export default function Settings (){
                                         </Button>
                                 </VStack>
                             </FormControl>
-
                             <FormControl>
                                 <VStack>
                                     <FormControl.Label>
@@ -182,15 +177,18 @@ export default function Settings (){
                                 </VStack>
                             </FormControl>
                             <VStack>
+                                <Text>
                                 {countryCodeError}
+                                </Text>
+                                <Text>
                                 {phoneNumberError}
+                                </Text>
                             </VStack>
                             <Button w="80%"
                                     onPress={saveSettings}
                             >
                                 Save Settings and Return
                             </Button>
-
                         </VStack>
                     </ScrollView>
                 </Box>

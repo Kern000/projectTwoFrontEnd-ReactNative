@@ -1,6 +1,6 @@
 import React, {useState, useContext} from "react";
 import { View, TextInput } from 'react-native';
-import { NativeBaseProvider, Box, Heading, VStack, FormControl, Center, Button, HStack, Text, Link, Input } from "native-base"; // Import NativeBase components
+import { NativeBaseProvider, Box, Heading, VStack, FormControl, Center, Button, HStack, Text, Link, Input } from "native-base";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { navigateToRegister, navigateToSettings, goBack } from "../navigation";
 

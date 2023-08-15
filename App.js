@@ -1,16 +1,13 @@
-// React Native Functionality
 import React from 'react';
 import Orientation from 'react-native-orientation-locker';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';  //Router
-import * as Font from 'expo-font';                             //defined under asset bundle in app.json
+import { createStackNavigator } from '@react-navigation/stack';  
+import * as Font from 'expo-font';                                  //defined under asset bundle in app.json
 
-// Firebase
-import { initializeApp } from 'firebase/app';                 // initializeApp doesn't bring in modules, so next line is needed
-import 'firebase/auth';                                     // on global level, import firebase functionality
+import { initializeApp } from 'firebase/app';                       // initializeApp doesn't bring in modules, so next line is needed
+import 'firebase/auth';                                             // on global level, import firebase functionality
 import firebaseConfig from './firebaseConfig';
 
-// Pages
 import LandingPage from './pages/landingPage';
 import MainPage from './pages/mainPage';
 import Login from './pages/login';
@@ -20,19 +17,18 @@ import BlockedNumbers from './pages/blockedNumbers';
 import WhiteList from './pages/whiteList';
 import CountryCode from './pages/countryCodeWhiteList';
 
-// Context
 import UserContextData from './context/userContext';
 import SettingsContextData from './context/settingsContext';
 
-const Stack = createStackNavigator();                       //defined outside to prevent rerender
+const Stack = createStackNavigator();                                //defined outside to prevent rerender
 
 export default function App() {
 
   useEffect(()=> {
 
-    Orientation.lockToPortrait();       // lock phone orientation
+    Orientation.lockToPortrait();
 
-    initializeApp(firebaseConfig);      // initialize firebase config
+    initializeApp(firebaseConfig);
 
     async function loadFonts(){
       await Font.loadAsync({

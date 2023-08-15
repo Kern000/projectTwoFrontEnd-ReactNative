@@ -1,15 +1,8 @@
-// React
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-// API
 import axios from 'axios';
-
-// .env for API and Firebase
 import Config from 'react-native-config';
 
 let headersData = {};
-
-// set Header based on token received from firebase
 
 if (AsyncStorage.getItem("token")) {
     headersData["Authorization"] = `Bearer ${AsyncStorage.getItem("token")}`;
@@ -24,8 +17,6 @@ const APIHandler = axios.create({
     headers: headersData
 })
 
-// axios.create create an instance of Axios HTTP client.
-
 APIHandler.interceptors.response.use(
     (response) => response,
     (error) => {
@@ -34,26 +25,18 @@ APIHandler.interceptors.response.use(
         return Promise.reject(error);
     }
 );
-// intercept error in centralized manner, prevent .then from executing, and funnel into catch
 
 export const setAuthHeader = (uid, token) => {
     APIHandler.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     APIHandler.defaults.headers.common["uid"] = uid;
-    AsyncStorage.setItem("token", token);               //store as object {"token": token}
+    AsyncStorage.setItem("token", token);                               //store as object {"token": token}
     AsyncStorage.setItem("uid", uid);
 }
 
-// defaults object within an instance allows setting of default configuration applied to all requests made using that instance
-// The common headers are sent with every request, regardless of the HTTP method used.
-
 export const clearAuthHeader = () => {
     delete APIHandler.defaults.headers.common["Authorization"];
-    delete APIHandler.defaults.headers.common["uid"];
+    delete APIHandler.defaults.headers.common["uid"];                   // delete operator remove a property (key-value pair) from object.
     AsyncStorage.clear();
 }
 
-// delete operator is used to remove a property (key-value pair) from an object.
-
 export default APIHandler;
-
-
