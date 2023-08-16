@@ -4,14 +4,14 @@ import { NativeBaseProvider, Box, Heading, VStack, FormControl, Center, Button, 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { navigateToRegister, navigateToSettings, goBack } from "../navigation";
 
-import { UserContext } from "../context/userContext";
+import { UserContextData } from "../context/userContext";
 
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import APIHandler, { clearAuthHeader, setAuthHeader } from "../APIHandler";
 
 export default function Login (){
 
-    const { setUserName, setParamsId } = useContext(UserContext);
+    const { setUserName, setParamsId } = useContext(UserContextData);
     const [ userFormData, setUserFormData ] = useState('');
     const [ errorNotification, setErrorNotification ] = useState('');
         

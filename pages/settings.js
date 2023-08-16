@@ -8,14 +8,14 @@ import { navigateToMain,
 
 import APIHandler from '../APIHandler';
 
-import { UserContext } from '../context/userContext';
-import { SettingsContext } from '../context/settingsContext';
+import { UserContextData } from '../context/userContext';
+import { SettingsContextData } from '../context/settingsContext';
 
 import { settingsStyle } from '../styles';
 
 export default function Settings (){
 
-    const { paramsId } = useContext(UserContext);
+    const { paramsId } = useContext(UserContextData);
     const { countryCode,
             setCountryCode,
             hpNumber,
@@ -24,7 +24,7 @@ export default function Settings (){
             setOfficeNumber,
             homeNumber,
             setHomeNumber,
-          } = useContext(SettingsContext);
+          } = useContext(SettingsContextData);
 
     const [countryCodeToAdd, setCountryCodeToAdd] = useState('');
     const [countryCodeError, setCountryCodeError] = useState('');
@@ -47,7 +47,12 @@ export default function Settings (){
             const homeNumberValidation = validatePhoneNumber.test(homeNumber);
 
             if (countryCodeValidation){
-                await APIHandler.patch(`entry/${paramsId}/countryCode`, countryCode);
+                await APIHandler.post(`entry/${paramsId}/countryCode`, 
+                    {
+                        'code': countryCode,
+                        'timeStamp': Date.now()
+                    }
+                );
             } else {
                 setCountryCodeError('invalid country code');
                 return;

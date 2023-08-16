@@ -1,38 +1,61 @@
-import { useContext, useEffect, useState } from 'react';
-import { NativeBaseProvider, Heading, ScrollView, VStack, FormControl, Button, Text, Link } from "native-base";
+import { useState, useContext, useEffect } from 'react';
+import { ScrollView } from 'react-native';
+import { NativeBaseProvider, Heading, VStack, Divider, FormControl, Button, Text, Link } from "native-base";
 
-import { UserContext } from '../context/userContext';
-import { SettingsContext } from '../context/settingsContext';
+import { UserContextData } from '../context/userContext';
+import { SettingsContextData } from '../context/settingsContext';
 
-import { APIHandler } from '../APIHandler'
-import { goBack } from '../navigation'
+import { APIHandler } from '../APIHandler';
+import { goBack } from '../navigation';
 
 export default function BlockedNumbers(){
 
-    const { paramsId } = useContext(UserContext);
+    const { paramsId } = useContext(UserContextData);
+    const [toggleState, setToggleState] = useState(true);
     
     const { blockedNumbers,
             setBlockedNumbers,
-          } = useContext(SettingsContext)
+          } = useContext(SettingsContextData)
 
     useEffect(async () => {
         await APIHandler.get(`/entry/${paramsId}/blockedNumbers`)
         .then(response => setBlockedNumbers(response.data))
         .catch(error => console.error('Failed to retrieve data: ', error))  
-    },[paramsId, setBlockedNumbers])
+    },[])
 
-    // use delete from axios.patch, then remove the button and render (whitelisted) - this is the easier way without re-rendering and dealing with large state datas and changes
-    // const deleteMatchingInNestedArray = async (userId, fieldWithDataArrayAsValue, nestedObjectKey, itemMatchCondition)
-    // do not depend on state because of App life cycle
-    // await addArrayItem(userId, fieldWithDataArrayAsValue, data); use this to update whiteList
-    // remember to add Date.Now() in the data for Axios
+    const deleteBlockedNumber = async (number) => {
+        await APIHandler.patch(`/entry/${paramsId}/blockedNumbers/blockedNumber/${number}`)
+    }
 
-    // const WhiteListBlockedNumber = (number) => {
-    //     removeBlockedNumber();
-    //     addToWhiteList();
-    //     APIHandler.patch
+    const addWhiteListNumber = async (number) => {
+        await APIHandler.post(`/entry/${paramsId}/whiteList`,
+        {
+            'whiteListedNumber': `${number}`,
+            'timeStamp': Date.now()
+        })
+    }
 
-    // }
+    const conditionalRendering =(number)=>{
+        if (toggleState == true){
+            return(
+                <Button onPress={handleBlockedNumber(number)}>
+                    whiteList
+                </Button>
+            )
+        } else {
+            return(
+                <Text>
+                    Number WhiteListed
+                </Text>
+            )
+        }
+    }
+
+    const handleBlockedNumber = (number) => {
+        deleteBlockedNumber(number);
+        addWhiteListNumber(number);
+        setToggleState(true)
+    }
 
     return (
         <>
@@ -60,12 +83,12 @@ export default function BlockedNumbers(){
                             <FormControl key={index}
                             >
                                 <VStack>
-                                    <Text>
-                                        {blockedNumberEntry.blockedNumber}
-                                    </Text>
-                                    <Button onPress={}>
-                                        WhiteList
-                                    </Button>
+                                    <Divider>
+                                        <Text>
+                                            {blockedNumberEntry.blockedNumber}
+                                        </Text>
+                                        {conditionalRendering(blockedNumberEntry.blockedNumber)}
+                                    </Divider>
                                 </VStack>
                             </FormControl>
                         ))}
