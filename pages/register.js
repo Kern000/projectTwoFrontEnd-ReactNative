@@ -6,13 +6,13 @@ import { navigateToLogin, navigateToSettings, goBack } from "../navigation";
 
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
-import { UserContextData } from "../context/userContext";
+import { UserContext } from "../context/userContext";
 
 import APIHandler, { clearAuthHeader, setAuthHeader } from "../APIHandler";
 
 export default function Example() {
 
-  const { setUserName, setParamsId } = useContext(UserContextData);
+  const { setUserName, setParamsId } = useContext(UserContext);
   const [ userFormData, setUserFormData ] = useState('');
   const [ errorNotification, setErrorNotification ] = useState('');            
 

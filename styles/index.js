@@ -1,4 +1,4 @@
-import StyleSheet from 'react-native';
+import {StyleSheet} from 'react-native';
 
 export const landingStyles = StyleSheet.create({
     landingContainer: {
@@ -39,15 +39,15 @@ export const mainPageStyles = StyleSheet.create({
 
 export const settingsStyle = StyleSheet.create({
     title:  {
-                color: 'black',
+                color: 'white',
                 fontSize: 10
             }
 })
 
-export const mainButtonStyle= StyleSheet.create({
+export const mainButtonStyle = StyleSheet.create({
 
     title:              {
-                            color: 'white',
+                            color: 'black',
                             fontFamily: 'Montserrat-SemiBold',
                             textAlign: 'center'
                         },

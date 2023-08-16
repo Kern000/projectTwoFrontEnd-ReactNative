@@ -8,14 +8,14 @@ import { navigateToMain,
 
 import APIHandler from '../APIHandler';
 
-import { UserContextData } from '../context/userContext';
-import { SettingsContextData } from '../context/settingsContext';
+import { UserContext } from '../context/userContext';
+import { SettingsContext } from '../context/settingsContext';
 
 import { settingsStyle } from '../styles';
 
 export default function Settings (){
 
-    const { paramsId } = useContext(UserContextData);
+    const { paramsId } = useContext(UserContext);
     const { countryCode,
             setCountryCode,
             hpNumber,
@@ -24,7 +24,7 @@ export default function Settings (){
             setOfficeNumber,
             homeNumber,
             setHomeNumber,
-          } = useContext(SettingsContextData);
+          } = useContext(SettingsContext);
 
     const [countryCodeToAdd, setCountryCodeToAdd] = useState('');
     const [countryCodeError, setCountryCodeError] = useState('');

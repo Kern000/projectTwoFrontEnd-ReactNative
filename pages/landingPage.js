@@ -7,7 +7,7 @@ import { Heading } from 'native-base';
 import { landingStyles } from '../styles';
 import { navigateToMain } from '../navigation';
 
-export default function LandingPage(){   
+export default function LandingPage(){
 
     useEffect(()=> {
         const navigationTimeout = setTimeout(()=> navigateToMain(), 3000)
@@ -22,7 +22,7 @@ export default function LandingPage(){
                 >
                     Scam Call Blocker
                 </Heading>
-                <ImageBackground    source={require('./assets/logo1.jpg')}
+                <ImageBackground    source={require('../assets/logo1.jpg')}
                                     style={landingStyles.imageBackground}
                 >
                 </ImageBackground>

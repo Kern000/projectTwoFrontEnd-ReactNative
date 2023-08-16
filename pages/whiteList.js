@@ -2,20 +2,20 @@ import { useState, useContext, useEffect } from 'react';
 import { ScrollView } from 'react-native';
 import { NativeBaseProvider, Heading, VStack, Divider, FormControl, Button, Text, Link } from "native-base";
 
-import { UserContextData } from '../context/userContext';
-import { SettingsContextData } from '../context/settingsContext';
+import { UserContext } from '../context/userContext';
+import { SettingsContext } from '../context/settingsContext';
 
-import { APIHandler } from '../APIHandler';
+import APIHandler from '../APIHandler';
 import { goBack } from '../navigation';
 
 export default function whiteList(){
 
-    const { paramsId } = useContext(UserContextData);
+    const { paramsId } = useContext(UserContext);
     const [toggleState, setToggleState] = useState(true);
     
     const { whiteList,
             setWhiteList,
-          } = useContext(SettingsContextData)
+          } = useContext(SettingsContext)
 
     useEffect(async () => {
         await APIHandler.get(`/entry/${paramsId}/whiteList`)
