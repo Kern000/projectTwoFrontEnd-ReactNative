@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useCallback, useEffect } from 'react';
 import { ScrollView } from 'react-native';
 import { NativeBaseProvider, Heading, VStack, Divider, FormControl, Button, Text, Link } from "native-base";
 
@@ -6,7 +6,8 @@ import { UserContext } from '../context/userContext';
 import { SettingsContext } from '../context/settingsContext';
 
 import APIHandler from '../APIHandler';
-import { goBack } from '../navigation';
+
+import { useNavigation } from "@react-navigation/native";
 
 export default function BlockedNumbers(){
 
@@ -17,6 +18,12 @@ export default function BlockedNumbers(){
             setBlockedNumbers,
           } = useContext(SettingsContext)
 
+    const navigation = useNavigation();
+
+    const navigateGoBack = useCallback(()=>{
+        navigation.goBack();
+    }, [navigation])
+      
     useEffect(async () => {
         await APIHandler.get(`/entry/${paramsId}/blockedNumbers`)
         .then(response => setBlockedNumbers(response.data))
@@ -69,7 +76,7 @@ export default function BlockedNumbers(){
                                             fontSize: 'sm'
                                         }} 
                                 href="#"
-                                onPress={goBack}
+                                onPress={navigateGoBack}
                             >
                                 Previous Page
                             </Link>

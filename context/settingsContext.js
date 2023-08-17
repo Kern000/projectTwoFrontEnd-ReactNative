@@ -43,11 +43,9 @@ const SettingsContextData = ({children}) => {
     )
 
     return (
-        <>
-            <SettingsContext.Provider value={contextValue}>
-                {children}
-            </SettingsContext.Provider>        
-        </>
+        <SettingsContext.Provider value={contextValue}>
+            {children}
+        </SettingsContext.Provider>        
     )
 }
 

@@ -1,8 +1,7 @@
-import React, {useState, useContext} from "react";
-import { View, TextInput } from 'react-native';
-import { NativeBaseProvider, Box, Heading, VStack, FormControl, Center, Button, HStack, Text, Link, Input } from "native-base"; // Import NativeBase components
+import React, {useState, useCallback, useContext} from "react";
+import { View, TouchableHighlight } from 'react-native';
+import { NativeBaseProvider, Box, Heading, VStack, FormControl, Center, Button, HStack, Text, Input } from "native-base"; // Import NativeBase components
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { navigateToLogin, navigateToSettings, goBack } from "../navigation";
 
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
@@ -10,11 +9,35 @@ import { UserContext } from "../context/userContext";
 
 import APIHandler, { clearAuthHeader, setAuthHeader } from "../APIHandler";
 
+import { useNavigation } from "@react-navigation/native";
+
+import { linkToPreviousPageStyles } from "../styles";
+
 export default function Example() {
 
   const { setUserName, setParamsId } = useContext(UserContext);
-  const [ userFormData, setUserFormData ] = useState('');
+  const [ userFormData, setUserFormData ] = useState(
+    {
+      'emailAddress': '',
+      'password':'',
+      'passwordConfirmation':''
+    }
+  );
   const [ errorNotification, setErrorNotification ] = useState('');            
+
+  const navigation = useNavigation();
+
+  const navigateGoBack = useCallback(()=>{
+      navigation.goBack()
+  }, [navigation]);
+
+  const navigateToLogin = useCallback(()=>{
+      navigation.navigate('Login')
+  }, [navigation]);
+
+  const navigateToSettings = useCallback(()=>{
+      navigation.navigate('Settings')
+  }, [navigation]);
 
   const emailValidationRegex = /^[a-zA-Z0-9._+-]+@[a-zA-Z.-]+\.[A-Za-z]{2,}$/;
   
@@ -22,9 +45,8 @@ export default function Example() {
     return emailValidationRegex.test(emailAddress);
   }
   
-  const updateFormField = (event) => {
-    let dataToUpdate = {[event.target.name]: event.nativeEvent.text};
-    setUserFormData({...userFormData,...dataToUpdate});
+  const updateFormField = (fieldName, value) => {
+    setUserFormData((prevData) => ({...prevData, [fieldName]:value}));
   }
 
   const handleSuccessfulRegistration = (uid, emailAddress, idToken) => {
@@ -37,7 +59,7 @@ export default function Example() {
         const paramsId = response.data;
         setParamsId(paramsId);
         AsyncStorage.setItem("emailAddress", emailAddress);
-        navigateToSettings();
+        navigateToSettings;
     }).catch((error) => {
         console.log('/user/register encountered error', error);
         clearAuthHeader();
@@ -77,16 +99,13 @@ export default function Example() {
   return (
             <NativeBaseProvider>
               <View>
-                <Link _text={{
-                                color: 'blue',
-                                bold: true,
-                                fontSize: 'sm'
-                            }} 
-                      href="#"
-                      onPress={goBack}
-                >
-                  Previous Page
-                </Link>
+                  <TouchableHighlight>
+                      <Text   style={linkToPreviousPageStyles.link}
+                              onPress={navigateGoBack}
+                      > 
+                          Previous Page
+                      </Text>
+                  </TouchableHighlight>
               </View>
 
               <Center flex={1} px="3">
@@ -107,9 +126,9 @@ export default function Example() {
                       }}>
                         Email
                       </FormControl.Label>
-                      <TextInput  name="emailAddress"
+                      <Input  name="emailAddress"
                                   value={userFormData.emailAddress}
-                                  onChangeText={updateFormField}
+                                  onChangeText={(value)=>updateFormField('emailAddress', value)}
                       />
                     </FormControl>
                     
@@ -124,7 +143,7 @@ export default function Example() {
                       <Input  type="password" 
                               name="password"
                               value={userFormData.password}
-                              onChangeText={updateFormField}
+                              onChangeText={(value)=>updateFormField('password', value)}
                       />
                     </FormControl>
                     
@@ -139,7 +158,7 @@ export default function Example() {
                       <Input  type="password"
                               name="passwordConfirmation"
                               value={userFormData.passwordConfirmation}
-                              onChangeText={updateFormField}
+                              onChangeText={(value)=>updateFormField('passwordConfirmation', value)}
                       />
                     </FormControl>
 
@@ -161,16 +180,11 @@ export default function Example() {
                         >
                           I'm an existing user.{' '}
                         </Text>
-                        <Link _text={{
-                                        color: 'cyan.500',
-                                        bold: true,
-                                        fontSize: 'sm'
-                                        }} 
-                              href="#"
-                              onPress={navigateToLogin}
-                        >
-                          Log in
-                        </Link>
+                        <TouchableHighlight onPress={navigateToLogin}>
+                          <Text   style={linkToPreviousPageStyles.swapPage}> 
+                            Login
+                          </Text>
+                        </TouchableHighlight>
                       </HStack>
                     </VStack>
                   </VStack>

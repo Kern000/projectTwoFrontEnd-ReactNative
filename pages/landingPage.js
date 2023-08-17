@@ -1,35 +1,42 @@
-import React, {useEffect} from 'react';
+import React, {useCallback} from 'react';
 import { Text,
          View,
-         ImageBackground, 
-         TouchableWithoutFeedback} from 'react-native';
-import { Heading } from 'native-base';
+         Image,
+         TouchableOpacity} from 'react-native';
+import { NativeBaseProvider, Heading, Center } from 'native-base';
 import { landingStyles } from '../styles';
-import { navigateToMain } from '../navigation';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
 export default function LandingPage(){
 
-    useEffect(()=> {
-        const navigationTimeout = setTimeout(()=> navigateToMain(), 3000)
-        return ()=> clearTimeout(navigationTimeout);
-    }, [])
+    const navigation = useNavigation();
 
-    return(
-        <TouchableWithoutFeedback onPress={navigateToMain}>
-            <View style={landingStyles.landingContainer}>
-                <Heading    size="md"
-                            style={landingStyles.title}
-                >
-                    Scam Call Blocker
-                </Heading>
-                <ImageBackground    source={require('../assets/logo1.jpg')}
-                                    style={landingStyles.imageBackground}
-                >
-                </ImageBackground>
-                <Text style={landingStyles.subtitle}>
-                    Filter calls based on privacy preferences
-                </Text>
-            </View>
-        </TouchableWithoutFeedback>
+    const navigateToMain = useCallback(()=>{
+        navigation.navigate('MainPage')
+    }, [navigation]);                               //prevent rerender, to prevent multiple instance on rerender because it leads to error (autonavi during testing)
+
+    useFocusEffect(()=> {
+        const navigationTimeout = setTimeout(navigateToMain, 4000)
+        return ()=> clearTimeout(navigationTimeout);
+    })
+
+    return (
+        <NativeBaseProvider>
+            <Center flex={1} w="100%" h="100%">
+                <View style={landingStyles.landingContainer}>
+                    <Heading size="lg" style={landingStyles.title}>
+                        Scam Call Blocker
+                    </Heading>
+                        <TouchableOpacity onPress={navigateToMain}>
+                            <Image source={require('../assets/logo1.png')}
+                                                style={landingStyles.imageBackground}
+                            />
+                        </TouchableOpacity>
+                    <Text style={landingStyles.subtitle}>
+                        Filter calls based on privacy preferences
+                    </Text>
+                </View>
+            </Center>
+        </NativeBaseProvider>
     )
 }

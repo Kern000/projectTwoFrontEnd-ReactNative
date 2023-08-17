@@ -1,25 +1,33 @@
-import React, {useState} from 'react';
-import { Text, TouchableHighlight } from 'react-native';
-import { Heading, Button, Divider, Center, ScrollView, VStack, NativeBaseProvider } from 'native-base';
-import { mainButtonStyle } from '../styles';
-import { navigateToLogin } from '../navigation';
+import React, {useState, useCallback} from 'react';
+import { Text, TouchableHighlight, View } from 'react-native';
+import { Heading, Button, Divider, Center, VStack, NativeBaseProvider } from 'native-base';
+import { mainButtonStyle as buttonStyle } from '../styles';
+import { useNavigation } from '@react-navigation/native';
 
 export default function MainButton(){
 
     const [mainSwitch, setMainSwitch] = useState(false);
 
     const toggleSwitch = () => {
-        setMainSwitch(!mainSwitch)
+        setMainSwitch(!mainSwitch);
     }
 
+    const mainButtonStyle = buttonStyle(mainSwitch);
+
+    const navigation = useNavigation();
+
+    const navigateToLogin = useCallback(()=>{
+        navigation.navigate('Login')
+    }, [navigation]);
+  
     return (
         <NativeBaseProvider>
             <Center flex={1} px={4}>
-                <ScrollView showsVerticalScrollIndicator={false}>            
+                <View>            
                     <VStack w="100%" space={5} px="2" mt="4" alignItems="center" justifyContent="center">
 
                         <Heading size="sm" style={mainButtonStyle.title}>
-                            Block Scam Calls Based on Privacy
+                            Block Scam Calls Based on Settings
                         </Heading>
 
                         <TouchableHighlight activeOpacity={0.7}>
@@ -46,9 +54,8 @@ export default function MainButton(){
                         </TouchableHighlight>
 
                     </VStack>
-                </ScrollView>
+                </View>
             </Center>
         </NativeBaseProvider>
     )
 };
-

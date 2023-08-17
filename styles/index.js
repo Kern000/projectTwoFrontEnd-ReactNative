@@ -1,35 +1,50 @@
 import {StyleSheet} from 'react-native';
 
+// import * as Font from 'expo-font';                                  //defined under asset bundle in app.json
+
+// const loadFonts = async () => {
+//     (console.log('hello3'))
+
+//     await Font.loadAsync({
+//         'Montserrat-SemiBold': require('../assets/fonts/Montserrat-SemiBold.ttf'),
+//         'Montserrat-Regular': require('../assets/fonts/Montserrat-Regular.ttf')
+//     })
+// }
+// loadFonts();
+
 export const landingStyles = StyleSheet.create({
     landingContainer: {
         flex:1,
         justifyContent: 'center',
-        alignContent: 'center',
+        alignItems: 'center',
+        padding: 0,
         backgroundColor: 'white',
-        padding: 0
+        height: '100%',
+        width: '100%',
     },
     title: {
-        fontFamily: 'Montserrat-SemiBold',
-        color: '#333333',
-        paddingBottom: 2
+        fontSize: 25,
+        color: '#9acd32',
+        paddingBottom: 10
     },
     imageBackground: {
-        resizeMode:'center',                //I do not want the logo to scale to changing dimensions
+        height: 150,
+        width: 200,
+        resizeMode:'contain'
     },
     subtitle: {
-        fontFamily: 'Montserrat-Regular',
-        color: '#333333',
-        fontSize: 12,                       //(density-independent pixels)
-        paddingTop: 2
+        color: "#008b8b",
+        fontSize: 15,                       //(density-independent pixels)
+        paddingTop: 10
     }
 })
 
 export const mainPageStyles = StyleSheet.create({
     mainContainer: {
       flex: 1,
-      backgroundColor: '#246EE9',       //royal blue
+      backgroundColor: '#f5f5f5',       
       justifyContent: 'center',         //along main axis //default flex direction is column in React Native
-      alignContent: 'center',           //align the content as a whole - alignItems
+      alignItems: 'center',             //align the content as a whole - alignItems
       padding: 0
     },
     statusBar: {
@@ -44,40 +59,65 @@ export const settingsStyle = StyleSheet.create({
             }
 })
 
-export const mainButtonStyle = StyleSheet.create({
+export const linkToPreviousPageStyles = StyleSheet.create({
+
+    link:       {
+                    color: 'black',
+                    textDecorationLine: 'underline',
+                    marginBottom: 20,
+                    marginTop: 5,
+                    marginLeft: 5,
+                    fontSize: 14
+                },
+    swapPage:   {
+                    color: 'black',
+                    textDecorationLine: 'underline',
+                    fontSize: 13,
+                }
+})
+
+
+export const mainButtonStyle = (mainSwitch) => {
+    return( StyleSheet.create({
 
     title:              {
-                            color: 'black',
-                            fontFamily: 'Montserrat-SemiBold',
-                            textAlign: 'center'
+                            color: '#20b2aa',
+                            // fontFamily: 'Montserrat-SemiBold',
+                            textAlign: 'center',
+                            marginBottom: 15,
+                            fontSize: 18
                         },
     roundButton:        {
-                            borderRadius: 50,
-                            paddingHorizontal: 20,
-                            paddingVertical: 20,
+                            borderRadius: 100,
+                            height: 200,
+                            width: 200,
                             backgroundColor: mainSwitch ? '#32CD32' : '#7F00FF',
-                            flexWrap: 'wrap',
                             alignItems: 'center',
                             justifyContent: 'center'
                         },
     buttonText:         {
                             fontWeight: 'bold',
                             color: 'white',
-                            fontFamily: 'Montserrat-SemiBold',
-                            textAlign: 'center'
+                            // fontFamily: 'Montserrat-SemiBold',
+                            textAlign: 'center',
+                            fontSize: 16
                         },
     settingsButton:     {
                             width: 250,
-                            height: 120,
-                            backgroundColor: '#E5E4E2',
+                            height: 60,
+                            backgroundColor: '#ffa07a',
                             flexWrap: 'Wrap',
                             alignItems: 'center',
-                            justifyContent: 'center'
+                            justifyContent: 'center',
+                            marginTop: 5
                         },
     settingsButtonText: {
                             color: '#6082B6',
-                            fontFamily: 'Montserrat-SemiBold',
-                            textAlign: 'center'
+                            // fontFamily: 'Montserrat-SemiBold',
+                            textAlign: 'center',
+                            fontWeight: 'bold',
+                            fontSize: 16
                         }
-})
+    })
+)}
 

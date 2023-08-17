@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useCallback, useEffect } from 'react';
 import { ScrollView } from 'react-native';
 import { NativeBaseProvider, Heading, VStack, Divider, FormControl, Button, Text, Link } from "native-base";
 
@@ -6,9 +6,10 @@ import { UserContext } from '../context/userContext';
 import { SettingsContext } from '../context/settingsContext';
 
 import APIHandler from '../APIHandler';
-import { goBack } from '../navigation';
 
-export default function whiteList(){
+import { useNavigation } from "@react-navigation/native";
+
+export default function CountryCode(){
 
     const { paramsId } = useContext(UserContext);
     const [toggleState, setToggleState] = useState(true);
@@ -16,6 +17,12 @@ export default function whiteList(){
     const { countryCode,
             setCountryCode,
           } = useContext(SettingsContext)
+
+    const navigation = useNavigation();
+    
+    const navigateGoBack = useCallback(()=>{
+        navigation.goBack();
+    }, [navigation])
 
     useEffect(async () => {
         await APIHandler.get(`/entry/${paramsId}/countryCode`)
@@ -60,7 +67,7 @@ export default function whiteList(){
                                             fontSize: 'sm'
                                         }} 
                                 href="#"
-                                onPress={goBack}
+                                onPress={navigateGoBack}
                             >
                                 Previous Page
                             </Link>

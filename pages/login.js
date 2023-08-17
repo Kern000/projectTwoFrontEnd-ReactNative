@@ -1,29 +1,50 @@
-import React, {useState, useContext} from "react";
-import { View, TextInput } from 'react-native';
-import { NativeBaseProvider, Box, Heading, VStack, FormControl, Center, Button, HStack, Text, Link, Input } from "native-base";
+import React, {useState, useCallback, useContext} from "react";
+import { TouchableHighlight, View, Text } from 'react-native';
+import { NativeBaseProvider, Box, Heading, VStack, FormControl, Center, Button, HStack, Input } from "native-base";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { navigateToRegister, navigateToSettings, goBack } from "../navigation";
 
 import { UserContext } from "../context/userContext";
 
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import APIHandler, { clearAuthHeader, setAuthHeader } from "../APIHandler";
 
+import { useNavigation } from "@react-navigation/native";
+
+import { linkToPreviousPageStyles } from "../styles";
+
 export default function Login (){
 
     const { setUserName, setParamsId } = useContext(UserContext);
-    const [ userFormData, setUserFormData ] = useState('');
+    const [ userFormData, setUserFormData ] = useState(
+        {
+            emailAddress:'',
+            password:''
+        }
+    );
     const [ errorNotification, setErrorNotification ] = useState('');
-        
+
+    const navigation = useNavigation();
+
+    const navigateGoBack = useCallback(()=>{
+        navigation.goBack()
+    }, [navigation]);
+
+    const navigateToRegister = useCallback(()=>{
+        navigation.navigate('Register')
+    }, [navigation]);
+
+    const navigateToSettings = useCallback(()=>{
+        navigation.navigate('Settings')
+    }, [navigation]);
+
     const emailValidationRegex = /^[a-zA-Z0-9._+-]+@[a-zA-Z.-]+\.[A-Za-z]{2,}$/;
 
     const validatedEmail = (emailAddress) => {
         return emailValidationRegex.test(emailAddress);
     }
 
-    const updateFormField = (event) => {
-        let dataToUpdate = {[event.target.name]: event.target.value};
-        setUserFormData({...userFormData,...dataToUpdate});
+    const updateFormField = (fieldName, value) => {
+        setUserFormData((prevData) => ({...prevData, [fieldName]:value}));
     }
 
     const handleSuccessfulLogin = (uid, emailAddress, idToken) => {
@@ -36,7 +57,7 @@ export default function Login (){
             const paramsId = response.data;
             setParamsId(paramsId);
             AsyncStorage.setItem("emailAddress", emailAddress);
-            navigateToSettings()
+            navigateToSettings
         }).catch((error) => {
             console.log('/user/login encountered error', error);
             clearAuthHeader();
@@ -64,23 +85,25 @@ export default function Login (){
                 handleSuccessfulLogin(user.uid, user.email, idToken)    //firebase is user.email
         })
         .catch((error) => {
-            console.log("Firebase Error:", error.code, error.message);
+            if (error === "auth/user-not-found") {
+                setErrorNotification('user not found');
+            } else {
+                console.log("Firebase Error:", error.code, error.message);
+                setErrorNotification(`Firebase Error => ${error.code} ${error.message}`);
+        }
         })
     }
 
     return (
         <NativeBaseProvider>
             <View>
-                <Link _text={{
-                                color: 'blue',
-                                bold: true,
-                                fontSize: 'sm'
-                            }} 
-                      href="#"
-                      onPress={goBack}
-                >
-                    Previous Page
-                </Link>
+                <TouchableHighlight>
+                    <Text   style={linkToPreviousPageStyles.link}
+                            onPress={navigateGoBack}
+                    > 
+                        Previous Page
+                    </Text>
+                </TouchableHighlight>
             </View>
 
             <Center flex={1} px="3">
@@ -101,9 +124,9 @@ export default function Login (){
                             }}>
                                 Email ID
                             </FormControl.Label>
-                            <TextInput  name="emailAddress"
+                            <Input  name="emailAddress"
                                         value={userFormData.emailAddress}
-                                        onChangeText={updateFormField}
+                                        onChangeText={(value)=>updateFormField('emailAddress', value)}
                             />
                         </FormControl>
                         
@@ -118,7 +141,7 @@ export default function Login (){
                             <Input  type="password"
                                     name="password"
                                     value={userFormData.password}
-                                    onChangeText={updateFormField}
+                                    onChangeText={(value)=>updateFormField('password', value)}
                             />
                         </FormControl>
 
@@ -143,18 +166,17 @@ export default function Login (){
                             >
                                 I'm a new user.{' '}
                             </Text>
-                            <Link   _text={{
-                                            color: 'cyan.500',
-                                            bold: true,
-                                            fontSize: 'sm'
-                                            }} 
-                                    href="#"
-                                    onPress={navigateToRegister}
-                            >
-                                Sign Up
-                            </Link>
+                            <TouchableHighlight onPress={navigateToRegister}>
+                                <Text   style={linkToPreviousPageStyles.swapPage}
+                                > 
+                                    Sign up
+                                </Text>
+                            </TouchableHighlight>
                         </HStack>
                     </VStack>
+                    <View>
+                        {errorNotification}
+                    </View>
                 </Box>
             </Center>
         </NativeBaseProvider>

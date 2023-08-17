@@ -1,9 +1,9 @@
 import { createContext, useState, useEffect } from "react";
-import AsyncStorage from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const UserContext= createContext();
 
-const UserContextData = async ({children}) => {
+const UserContextData = ({children}) => {
 
     const [userName, setUserName] = useState('');
     const [paramsId, setParamsId] = useState('');

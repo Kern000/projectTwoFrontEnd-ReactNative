@@ -1,10 +1,6 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useCallback, useContext} from 'react';
 import { ScrollView, Text, TextInput } from 'react-native';
 import { NativeBaseProvider, Box, VStack, HStack, FormControl, Button } from 'native-base';
-import { navigateToMain, 
-         navigateToCountryCode, 
-         navigateToBlockedNumbers, 
-         navigateToWhiteList } from '../navigation';
 
 import APIHandler from '../APIHandler';
 
@@ -12,6 +8,8 @@ import { UserContext } from '../context/userContext';
 import { SettingsContext } from '../context/settingsContext';
 
 import { settingsStyle } from '../styles';
+
+import { useNavigation } from "@react-navigation/native";
 
 export default function Settings (){
 
@@ -38,6 +36,24 @@ export default function Settings (){
 
     const validateCountryCode = /^[a-zA-Z0-9+ -]{0,8}$/;
     const validatePhoneNumber = /^[0-9+ -]{0,15}$/;
+
+    const navigation = useNavigation();
+
+    const navigateToMain = useCallback(()=>{
+        navigation.navigate('Main')
+    }, [navigation]);
+
+    const navigateToWhiteList = useCallback(()=>{
+        navigation.navigate('WhiteList')
+    }, [navigation]);
+
+    const navigateToBlockedNumbers = useCallback(()=>{
+        navigation.navigate('BlockedNumbers')
+    }, [navigation]);
+
+    const navigateToCountryCode = useCallback(()=>{
+        navigation.navigate('BlockedNumbers')
+    }, [navigation]);
 
     const saveSettings = async() => {        
         try{
@@ -78,7 +94,7 @@ export default function Settings (){
                 setPhoneNumberError('invalid home number');
                 return;
             }
-            navigateToMain();
+            navigateToMain;
 
         } catch(error) {
             console.error('cannot save data', error)
