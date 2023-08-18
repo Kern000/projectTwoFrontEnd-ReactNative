@@ -1,41 +1,27 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import Config from 'react-native-config';
 
 let headersData = {};
 
-if (AsyncStorage.getItem("token")) {
-    headersData["Authorization"] = `Bearer ${AsyncStorage.getItem("token")}`;
-}
-
-if (AsyncStorage.getItem("uid")) {
-    headersData["uid"] = AsyncStorage.getItem("uid");
-}
-
 const APIHandler = axios.create({
-    baseURL: Config.REACT_APP_API_BASE_URL,
-    headers: headersData
+    'baseURL': "https://3001-kern000-projecttwobacke-qoe4aqnk2lp.ws-us104.gitpod.io",
 })
 
-APIHandler.interceptors.response.use(
-    (response) => response,
-    (error) => {
-        console.log("Error status: ", error.response.status);
+export const setAuthHeader = async (token) => {
 
-        return Promise.reject(error);
+    if (await AsyncStorage.getItem("token")){
+        let token1 = await AsyncStorage.getItem("token");
+        headersData["Authorization"] = `Bearer ${token1}`;
+    } else { 
+        headersData["Authorization"] = `Bearer ${token}`;
+        await AsyncStorage.setItem("token", token);
     }
-);
 
-export const setAuthHeader = (uid, token) => {
-    APIHandler.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    APIHandler.defaults.headers.common["uid"] = uid;
-    AsyncStorage.setItem("token", token);                               //store as object {"token": token}
-    AsyncStorage.setItem("uid", uid);
+    APIHandler.defaults.headers.common["Authorization"] = headersData["Authorization"];
 }
 
 export const clearAuthHeader = () => {
     delete APIHandler.defaults.headers.common["Authorization"];
-    delete APIHandler.defaults.headers.common["uid"];                   // delete operator remove a property (key-value pair) from object.
     AsyncStorage.clear();
 }
 

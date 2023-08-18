@@ -1,6 +1,6 @@
 import React, {useState, useCallback, useContext} from 'react';
-import { ScrollView, Text, TextInput } from 'react-native';
-import { NativeBaseProvider, Box, VStack, HStack, FormControl, Button } from 'native-base';
+import { ScrollView, Text, View } from 'react-native';
+import { NativeBaseProvider, Box, VStack, HStack, FormControl, Button, Input } from 'native-base';
 
 import APIHandler from '../APIHandler';
 
@@ -28,19 +28,13 @@ export default function Settings (){
     const [countryCodeError, setCountryCodeError] = useState('');
     const [phoneNumberError, setPhoneNumberError] = useState('');
     
-    const updateCountryCode = () => {
-        setCountryCode(
-            [...countryCode, countryCodeToAdd]
-        )
-    }
-
     const validateCountryCode = /^[a-zA-Z0-9+ -]{0,8}$/;
     const validatePhoneNumber = /^[0-9+ -]{0,15}$/;
 
     const navigation = useNavigation();
 
     const navigateToMain = useCallback(()=>{
-        navigation.navigate('Main')
+        navigation.navigate('MainPage')
     }, [navigation]);
 
     const navigateToWhiteList = useCallback(()=>{
@@ -55,6 +49,7 @@ export default function Settings (){
         navigation.navigate('BlockedNumbers')
     }, [navigation]);
 
+    
     const saveSettings = async() => {        
         try{
             const countryCodeValidation = validateCountryCode.test(countryCode);
@@ -94,7 +89,7 @@ export default function Settings (){
                 setPhoneNumberError('invalid home number');
                 return;
             }
-            navigateToMain;
+            navigateToMain();
 
         } catch(error) {
             console.error('cannot save data', error)
@@ -110,28 +105,28 @@ export default function Settings (){
                     <ScrollView>
                         <VStack>
                             <Text style={settingsStyle.title}>
-                                Privacy: numbers that do not match your provided formats will be blocked. Leave blank if too strict.
+                                How to use: numbers that do not match your provided formats will be blocked. Leave blank if too strict.
                             </Text>
                             <FormControl>
                                 <VStack>
-                                    <FormControl.Label>
-                                        Filter based on country code. Incl the '+' and '-'.
+                                    <FormControl.Label ml='1'>
+                                        Whitelist a country code. Incl the '+' and '-'.
                                         Use only if you are not expecting overseas calls
                                     </FormControl.Label>
-                                    <TextInput  name="countryCode"
+                                    <Input  name="countryCode"
                                                 value={countryCodeToAdd}
-                                                onChangeText={event=> setCountryCodeToAdd(event.nativeEvent.text)}
+                                                onChangeText={(value)=>setCountryCodeToAdd(value)}
+                                                w='70%'
+                                                mt="2"
+                                                ml="2"
                                                 />
                                     <HStack>
                                         <Button size="sm" 
                                                 colorScheme="secondary"
-                                                onPress={updateCountryCode}
-                                        >
-                                            Add
-                                        </Button>
-                                        <Button size="sm" 
-                                                colorScheme="secondary"
                                                 onPress={navigateToCountryCode}
+                                                ml="2"
+                                                mb="3"
+                                                mt="3"
                                         >
                                             Manage list
                                         </Button>
@@ -140,45 +135,58 @@ export default function Settings (){
                             </FormControl>
                             <FormControl>
                                 <VStack>
-                                    <FormControl.Label>
+                                    <FormControl.Label ml='2'>
                                         Enter Handphone Number Format
                                     </FormControl.Label>
-                                    <TextInput  name="hpNumber"
+                                    <Input  name="hpNumber"
                                                 value={hpNumber}
-                                                onChangeText={event=> setHpNumber(event.nativeEvent.text)}
+                                                onChangeText={(value)=> setHpNumber(value)}
+                                                w='70%'
+                                                mt="2"
+                                                ml="2"
                                     />
                                 </VStack>
                             </FormControl>
                             <FormControl>
                                 <VStack>
-                                    <FormControl.Label>
+                                    <FormControl.Label ml='2'>
                                         Enter Office Number Format
                                     </FormControl.Label>
-                                    <TextInput  name="officeNumber"
+                                    <Input  name="officeNumber"
                                                 value={officeNumber}
-                                                onChangeText={event=> setOfficeNumber(event.nativeEvent.text)}
-                                                />
+                                                onChangeText={(value)=> setOfficeNumber(value)}
+                                                w='70%'
+                                                mt="2"
+                                                ml="2"            
+                                    />
                                 </VStack>
                             </FormControl>
                             <FormControl>
                                 <VStack>
-                                    <FormControl.Label>
+                                    <FormControl.Label ml='2'>
                                         Enter Home Number Format
                                     </FormControl.Label>
-                                    <TextInput  name="homeNumber"
+                                    <Input  name="homeNumber"
                                                 value={homeNumber}
-                                                onChangeText={event=> setHomeNumber(event.nativeEvent.text)}
-                                                />
+                                                onChangeText={(value)=> setHomeNumber(value)}
+                                                w='70%'
+                                                mt="2"
+                                                ml="2"
+                                    />
                                 </VStack>
                             </FormControl>
                             <FormControl>
                                 <VStack>
-                                    <FormControl.Label>
+                                    <FormControl.Label ml='2'>
                                         Blocked Numbers List
                                     </FormControl.Label>
                                         <Button size="sm" 
                                                 colorScheme="secondary"
                                                 onPress={navigateToBlockedNumbers}
+                                                w='70%'
+                                                ml="2"
+                                                mt="1"
+                                                mb="2"
                                         >
                                             Manage list
                                         </Button>
@@ -186,26 +194,34 @@ export default function Settings (){
                             </FormControl>
                             <FormControl>
                                 <VStack>
-                                    <FormControl.Label>
+                                    <FormControl.Label ml='2'>
                                         WhiteListed Numbers
                                     </FormControl.Label>
                                         <Button size="sm"
                                                 colorScheme="secondary"
                                                 onPress={navigateToWhiteList}
+                                                w='70%'
+                                                mt="1"
+                                                ml="2"
+                                                mb="2"
                                         >
                                             Manage list
                                         </Button>
                                 </VStack>
                             </FormControl>
                             <VStack>
-                                <Text>
-                                {countryCodeError}
-                                </Text>
-                                <Text>
-                                {phoneNumberError}
-                                </Text>
+                                <View>
+                                    <Text style={settingsStyle.error}>
+                                    {countryCodeError}
+                                    </Text>
+                                </View>
+                                <View>
+                                    <Text style={settingsStyle.error}>
+                                    {phoneNumberError}
+                                    </Text>
+                                </View>
                             </VStack>
-                            <Button w="80%"
+                            <Button w="100%"
                                     onPress={saveSettings}
                             >
                                 Save Settings and Return

@@ -24,7 +24,7 @@ export default function Example() {
     }
   );
   const [ errorNotification, setErrorNotification ] = useState('');            
-
+ 
   const navigation = useNavigation();
 
   const navigateGoBack = useCallback(()=>{
@@ -49,21 +49,24 @@ export default function Example() {
     setUserFormData((prevData) => ({...prevData, [fieldName]:value}));
   }
 
-  const handleSuccessfulRegistration = (uid, emailAddress, idToken) => {
+  const handleSuccessfulRegistration = async (emailAddress, idToken) => {
 
-    setAuthHeader(uid, idToken);
+    await setAuthHeader(idToken);
 
-    APIHandler.post("/user/register", {uid, emailAddress, idToken})
-    .then((response)=> {
+    try {
+        let response = await APIHandler.post("/user/register", {'emailAddress': emailAddress})
+        
         setUserName(emailAddress);
         const paramsId = response.data;
+
         setParamsId(paramsId);
-        AsyncStorage.setItem("emailAddress", emailAddress);
-        navigateToSettings;
-    }).catch((error) => {
+
+        navigateToSettings();
+
+      } catch (error) {
         console.log('/user/register encountered error', error);
         clearAuthHeader();
-    })
+    }
   }
 
   const submitRegistrationForm = (event) => {
@@ -72,6 +75,8 @@ export default function Example() {
     setErrorNotification('');                                         //refresh error state on each user attempt
     
     const {emailAddress, password, passwordConfirmation} = userFormData;
+
+    console.log(emailAddress, password, passwordConfirmation)
 
     if (!validatedEmail(emailAddress)) {
       setErrorNotification("Enter valid email");
@@ -89,7 +94,7 @@ export default function Example() {
     .then(async(userCredential) => {
             const user = userCredential.user;
             const idToken = await user.getIdToken();
-            handleSuccessfulRegistration(user.uid, user.email, idToken)       //firebase is user.email
+            handleSuccessfulRegistration(user.email, idToken)       //firebase is user.email
     })
     .catch((error) => {
         console.log("Firebase Error:", error.code, error.message);
@@ -170,7 +175,9 @@ export default function Example() {
                         SignUp
                       </Button>
                       <View>
+                        <Text>
                         {errorNotification}
+                        </Text>
                       </View>
           
                       <HStack justifyContent="center">

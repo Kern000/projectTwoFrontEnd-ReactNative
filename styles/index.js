@@ -54,9 +54,18 @@ export const mainPageStyles = StyleSheet.create({
 
 export const settingsStyle = StyleSheet.create({
     title:  {
-                color: 'white',
-                fontSize: 10
-            }
+                color: 'black',
+                fontSize: 13,
+                marginTop: 10,
+                marginBottom: 5,
+                marginLeft: 5
+            },
+    error:  {
+                marginLeft:8,
+                marginBottom:5,
+                color: 'red',
+                fontSize: 15
+    }
 })
 
 export const linkToPreviousPageStyles = StyleSheet.create({

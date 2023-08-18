@@ -1,7 +1,6 @@
 import React, {useState, useCallback, useContext} from "react";
 import { TouchableHighlight, View, Text } from 'react-native';
 import { NativeBaseProvider, Box, Heading, VStack, FormControl, Center, Button, HStack, Input } from "native-base";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { UserContext } from "../context/userContext";
 
@@ -47,17 +46,17 @@ export default function Login (){
         setUserFormData((prevData) => ({...prevData, [fieldName]:value}));
     }
 
-    const handleSuccessfulLogin = (uid, emailAddress, idToken) => {
+    const handleSuccessfulLogin = (emailAddress, idToken) => {
 
-        setAuthHeader(uid, idToken);
+        setAuthHeader(idToken);
 
-        APIHandler.get("/user/login", {uid, emailAddress, idToken})
+        APIHandler.get("/user/login", {emailAddress, idToken})
         .then((response)=> {
             setUserName(emailAddress);
             const paramsId = response.data;
             setParamsId(paramsId);
-            AsyncStorage.setItem("emailAddress", emailAddress);
-            navigateToSettings
+            console.log('Login Successful');
+            navigateToSettings();
         }).catch((error) => {
             console.log('/user/login encountered error', error);
             clearAuthHeader();
@@ -82,7 +81,7 @@ export default function Login (){
         .then(async(userCredential) => {
                 const user = userCredential.user;
                 const idToken = await user.getIdToken();
-                handleSuccessfulLogin(user.uid, user.email, idToken)    //firebase is user.email
+                handleSuccessfulLogin(user.email, idToken)    //firebase is user.email
         })
         .catch((error) => {
             if (error === "auth/user-not-found") {
@@ -154,7 +153,9 @@ export default function Login (){
                                 Login
                             </Button>
                             <View>
+                                <Text>
                                 {errorNotification}
+                                </Text>
                             </View>
                         </VStack>
 
@@ -175,7 +176,9 @@ export default function Login (){
                         </HStack>
                     </VStack>
                     <View>
-                        {errorNotification}
+                        <Text>
+                            {errorNotification}
+                        </Text>
                     </View>
                 </Box>
             </Center>
