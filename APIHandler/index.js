@@ -1,10 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
-let headersData = {};
+export let headersData = {};
 
 const APIHandler = axios.create({
-    'baseURL': "https://3001-kern000-projecttwobacke-qoe4aqnk2lp.ws-us104.gitpod.io",
+    'baseURL': "https://3001-kern000-projecttwobacke-4w513f06izs.ws-us104.gitpod.io",
 })
 
 export const setAuthHeader = async (token) => {

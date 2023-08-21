@@ -13,7 +13,7 @@ import { linkToPreviousPageStyles } from "../styles";
 
 export default function Login (){
 
-    const { setUserName, setParamsId } = useContext(UserContext);
+    const { userName, setUserName, setParamsId } = useContext(UserContext);
     const [ userFormData, setUserFormData ] = useState(
         {
             emailAddress:'',
@@ -46,21 +46,28 @@ export default function Login (){
         setUserFormData((prevData) => ({...prevData, [fieldName]:value}));
     }
 
-    const handleSuccessfulLogin = (emailAddress, idToken) => {
+    const handleSuccessfulLogin = async (emailAddress, idToken) => {
 
         setAuthHeader(idToken);
 
-        APIHandler.get("/user/login", {emailAddress, idToken})
-        .then((response)=> {
+        console.log('handleLogin', emailAddress)
+        console.log('idtoken123', idToken)
+
+        try{
+            let response = await APIHandler.post("/user/login", {'emailAddress':emailAddress, 'idToken':idToken})
+
             setUserName(emailAddress);
+
             const paramsId = response.data;
             setParamsId(paramsId);
-            console.log('Login Successful');
+
+            console.log('Login Successful', paramsId);
             navigateToSettings();
-        }).catch((error) => {
+
+        } catch(error) {
             console.log('/user/login encountered error', error);
             clearAuthHeader();
-        })
+        }
     }
 
     const submitLoginForm = (event) => {
@@ -69,6 +76,7 @@ export default function Login (){
         setErrorNotification('');
         
         const {emailAddress, password} = userFormData;
+        console.log('handlelogin123=>', emailAddress, password)
 
         if (!validatedEmail(emailAddress)) {
             setErrorNotification("Enter valid email");

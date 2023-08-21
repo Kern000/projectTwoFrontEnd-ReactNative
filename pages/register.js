@@ -60,6 +60,9 @@ export default function Example() {
         const paramsId = response.data;
 
         setParamsId(paramsId);
+        console.log('paramsId:', paramsId)
+
+        await AsyncStorage.setItem("token", idToken);
 
         navigateToSettings();
 

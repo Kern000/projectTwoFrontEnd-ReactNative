@@ -11,7 +11,7 @@ const UserContextData = ({children}) => {
     useEffect(()=> {
         const fetchData = async() => {
             try{
-                let defaultUserName = await AsyncStorage.getItem("email")? AsyncStorage.getItem("email") : '';
+                let defaultUserName = await AsyncStorage.getItem("emailAddress")? AsyncStorage.getItem("emailAddress") : '';
                 setUserName(defaultUserName);
             } catch (error) {
                 console.error('Error in email retrieval', error)

@@ -2,7 +2,7 @@ import React, {useState, useCallback, useContext} from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { NativeBaseProvider, Box, VStack, HStack, FormControl, Button, Input } from 'native-base';
 
-import APIHandler from '../APIHandler';
+import APIHandler, { setAuthHeader, headersData } from '../APIHandler';
 
 import { UserContext } from '../context/userContext';
 import { SettingsContext } from '../context/settingsContext';
@@ -28,7 +28,7 @@ export default function Settings (){
     const [countryCodeError, setCountryCodeError] = useState('');
     const [phoneNumberError, setPhoneNumberError] = useState('');
     
-    const validateCountryCode = /^[a-zA-Z0-9+ -]{0,8}$/;
+    const validateCountryCode = /^[0-9+ -]{0,8}$/;
     const validatePhoneNumber = /^[0-9+ -]{0,15}$/;
 
     const navigation = useNavigation();
@@ -49,6 +49,11 @@ export default function Settings (){
         navigation.navigate('BlockedNumbers')
     }, [navigation]);
 
+    const updateCountryCode = useCallback(() => {
+        setCountryCode(
+            countryCodeToAdd
+        )
+    },[countryCodeToAdd, countryCode])
     
     const saveSettings = async() => {        
         try{
@@ -57,10 +62,19 @@ export default function Settings (){
             const officeNumberValidation = validatePhoneNumber.test(officeNumber);
             const homeNumberValidation = validatePhoneNumber.test(homeNumber);
 
+            console.log(paramsId)
+            console.log(APIHandler)
+
+            setAuthHeader()
+            
+            console.log(headersData)
+
+            updateCountryCode()
+
             if (countryCodeValidation){
-                await APIHandler.post(`entry/${paramsId}/countryCode`, 
+                await APIHandler.post(`/entry/${paramsId}/countryCode`, 
                     {
-                        'code': countryCode,
+                        'code': countryCode,    
                         'timeStamp': Date.now()
                     }
                 );
@@ -70,26 +84,26 @@ export default function Settings (){
             }
             
             if (hpNumberValidation) {
-                await APIHandler.patch(`entry/${paramsId}/hpNumber`, hpNumber);
+                await APIHandler.patch(`/entry/${paramsId}/hpNumber`, {'hpNumber': hpNumber});
             } else {
                 setPhoneNumberError('invalid hp number');
                 return;
             }
 
             if (officeNumberValidation){
-                await APIHandler.patch(`entry/${paramsId}/officeNumber`, officeNumber);
+                await APIHandler.patch(`/entry/${paramsId}/officeNumber`, {'officeNumber': officeNumber});
             } else {
                 setPhoneNumberError('invalid office number');
                 return;
             }
 
             if (homeNumberValidation) {
-                await APIHandler.patch(`entry/${paramsId}/homeNumber`, homeNumber);
+                await APIHandler.patch(`/entry/${paramsId}/homeNumber`, {'homeNumber': homeNumber});
             } else {
                 setPhoneNumberError('invalid home number');
                 return;
             }
-            navigateToMain();
+            // navigateToMain();
 
         } catch(error) {
             console.error('cannot save data', error)
