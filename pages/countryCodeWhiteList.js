@@ -1,9 +1,11 @@
-import { useState, useContext, useCallback, useEffect } from 'react';
+import { useContext, useCallback, useEffect } from 'react';
 import { ScrollView, View } from 'react-native';
-import { NativeBaseProvider, Heading, VStack, Divider, FormControl, Button, Text, Link } from "native-base";
+import { NativeBaseProvider, Heading, VStack, FormControl, Button, Text, Link } from "native-base";
 
 import { UserContext } from '../context/userContext';
 import { SettingsContext } from '../context/settingsContext';
+
+import { listingsStyles } from '../styles';
 
 import APIHandler from '../APIHandler';
 
@@ -12,53 +14,38 @@ import { useNavigation } from "@react-navigation/native";
 export default function CountryCode(){
 
     const { paramsId } = useContext(UserContext);
-    const [toggleState, setToggleState] = useState(true);
+    const { countryCodeList, setCountryCodeList} = useContext(SettingsContext)
     
-    const { countryCode,
-            setCountryCode,
-          } = useContext(SettingsContext)
-
     const navigation = useNavigation();
     
     const navigateGoBack = useCallback(()=>{
         navigation.goBack();
     }, [navigation])
 
-    useEffect(async () => {
-        await APIHandler.get(`/entry/${paramsId}/countryCode`)
-        .then(response => setCountryCode(response.data))
-        .catch(error => console.error('Failed to retrieve data: ', error))  
+    async function fetchData() {
+        let response = await APIHandler.get(`/entry/${paramsId}/countryCode`);
+        console.log("Fetch Data for country =>", response.data);
+        setCountryCodeList(response.data);
+    }
+
+    useEffect(async () => {        
+        try{
+            fetchData();
+            console.log("from country code component, context country code", countryCodeList);
+        } catch (error) {
+            console.error('Failed to retrieve data: ', error)  
+        }
     },[])
 
     const deleteCountryCode = async (number) => {
-        await APIHandler.patch(`/entry/${paramsId}/countryCode/code/${number}`)
-    }
-
-    const conditionalRendering =(number)=>{
-        if (toggleState == true){
-            return(
-                <Button onPress={handleCountryCode(number)}>
-                    remove
-                </Button>
-            )
-        } else {
-            return(
-                <Text>
-                    CountryCode Removed
-                </Text>
-            )
-        }
-    }
-
-    const handleCountryCode = (number) => {
-        deleteCountryCode(number);
-        setToggleState(true)
+        await APIHandler.patch(`/entry/${paramsId}/countryCode/code/${number}`);
+        fetchData();
     }
 
     return (
         <>
             <NativeBaseProvider>
-                <ScrollView>
+                <ScrollView style={listingsStyles.background}>
                     <VStack>
                         <View>
                             <Link _text={{
@@ -77,18 +64,24 @@ export default function CountryCode(){
                                 WhiteList
                             </Heading>
                         </View>
-                        {countryCode.map((countryCodeEntry, index) => (
-                            <FormControl key={index}
-                            >
-                                <VStack>
-                                    <Divider>
-                                        <Text>
-                                            {countryCodeEntry.code}
-                                        </Text>
-                                        {conditionalRendering(countryCodeEntry.code)}
-                                    </Divider>
-                                </VStack>
-                            </FormControl>
+                            {countryCodeList?.map((countryCodeEntry, index) => (
+                            <View>
+                                <FormControl key={index}
+                                >
+                                    <VStack ml="4">
+                                            <View>
+                                                <Text style={listingsStyles.listing}>
+                                                    {countryCodeEntry.code}
+                                                </Text>
+                                            </View>
+                                            <Button onPress={()=>deleteCountryCode(countryCodeEntry.code)}
+                                                    w="100"
+                                                    ml="4">
+                                                remove
+                                            </Button>
+                                    </VStack>
+                                </FormControl>
+                            </View>
                         ))}
                     </VStack>
                 </ScrollView>

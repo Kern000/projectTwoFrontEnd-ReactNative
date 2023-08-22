@@ -1,5 +1,5 @@
 import React, {useState, useCallback, useContext} from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { NativeBaseProvider, Box, VStack, HStack, FormControl, Button, Input } from 'native-base';
 
 import APIHandler, { setAuthHeader, headersData } from '../APIHandler';
@@ -9,7 +9,7 @@ import { SettingsContext } from '../context/settingsContext';
 
 import { settingsStyle } from '../styles';
 
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation,  } from "@react-navigation/native";
 
 export default function Settings (){
 
@@ -46,32 +46,33 @@ export default function Settings (){
     }, [navigation]);
 
     const navigateToCountryCode = useCallback(()=>{
-        navigation.navigate('BlockedNumbers')
+        navigation.navigate('CountryCode')
     }, [navigation]);
 
     const updateCountryCode = useCallback(() => {
         setCountryCode(
             countryCodeToAdd
         )
-    },[countryCodeToAdd, countryCode])
-    
+    },[countryCodeToAdd])
+
+    const navigateGoBack = useCallback(()=>{
+        navigation.goBack()
+    }, [navigation]);
+      
     const saveSettings = async() => {        
         try{
-            const countryCodeValidation = validateCountryCode.test(countryCode);
+            const countryCodeValidation = validateCountryCode.test(countryCodeToAdd);
             const hpNumberValidation = validatePhoneNumber.test(hpNumber);
             const officeNumberValidation = validatePhoneNumber.test(officeNumber);
             const homeNumberValidation = validatePhoneNumber.test(homeNumber);
 
             console.log(paramsId)
-            console.log(APIHandler)
-
-            setAuthHeader()
+            setAuthHeader(headersData.idToken)
             
-            console.log(headersData)
-
-            updateCountryCode()
+            // updateCountryCode()
 
             if (countryCodeValidation){
+                console.log("called countryCode form")
                 await APIHandler.post(`/entry/${paramsId}/countryCode`, 
                     {
                         'code': countryCode,    
@@ -117,6 +118,11 @@ export default function Settings (){
             <NativeBaseProvider>
                 <Box>
                     <ScrollView>
+                        <TouchableOpacity onPress={navigateGoBack}>
+                            <Text>
+                                Go back
+                            </Text>
+                        </TouchableOpacity>
                         <VStack>
                             <Text style={settingsStyle.title}>
                                 How to use: numbers that do not match your provided formats will be blocked. Leave blank if too strict.
@@ -128,8 +134,8 @@ export default function Settings (){
                                         Use only if you are not expecting overseas calls
                                     </FormControl.Label>
                                     <Input  name="countryCode"
-                                                value={countryCodeToAdd}
-                                                onChangeText={(value)=>setCountryCodeToAdd(value)}
+                                                value={countryCode}
+                                                onChangeText={(value)=>setCountryCode(value)}
                                                 w='70%'
                                                 mt="2"
                                                 ml="2"
@@ -238,7 +244,7 @@ export default function Settings (){
                             <Button w="100%"
                                     onPress={saveSettings}
                             >
-                                Save Settings and Return
+                                Save Settings
                             </Button>
                         </VStack>
                     </ScrollView>
