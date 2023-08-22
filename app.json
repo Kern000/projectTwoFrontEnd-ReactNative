@@ -2,6 +2,7 @@
   "expo": {
     "name": "project-two-frontend",
     "slug": "project-two-frontend",
+    "description": "mock-up of scam call block pre-app state management",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -11,8 +12,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["assets/fonts/*"]
-     ,
+    "assetBundlePatterns": [
+      "assets/fonts/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -24,6 +26,17 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "36a3c85a-7aad-4822-a3c7-6c288fe72750"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/36a3c85a-7aad-4822-a3c7-6c288fe72750"
     }
   }
 }

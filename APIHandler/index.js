@@ -4,7 +4,7 @@ import axios from 'axios';
 export let headersData = {};
 
 const APIHandler = axios.create({
-    'baseURL': "https://3001-kern000-projecttwobacke-ai0og7l8zbf.ws-us104.gitpod.io",
+    'baseURL': "https://project-two-backend.onrender.com",
 })
 
 export const setAuthHeader = async (token) => {
