@@ -28,7 +28,7 @@ export default function CountryCode(){
         setCountryCodeList(response.data);
     }
 
-    useEffect(async () => {        
+    useEffect(() => {        
         try{
             fetchData();
             console.log("from country code component, context country code", countryCodeList);
@@ -71,12 +71,13 @@ export default function CountryCode(){
                                     <VStack ml="4">
                                             <View>
                                                 <Text style={listingsStyles.listing}>
-                                                    {countryCodeEntry.code}
+                                                    Number: {countryCodeEntry.code}
                                                 </Text>
                                             </View>
                                             <Button onPress={()=>deleteCountryCode(countryCodeEntry.code)}
-                                                    w="100"
-                                                    ml="4">
+                                                    w="80"
+                                                    ml="2"
+                                                    mb="2">
                                                 remove
                                             </Button>
                                     </VStack>

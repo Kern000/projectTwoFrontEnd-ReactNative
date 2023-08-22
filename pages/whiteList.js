@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect, useCallback } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { NativeBaseProvider, Heading, VStack, FormControl, Button, Text, Link, Input } from "native-base";
 
 import { UserContext } from '../context/userContext';
@@ -31,7 +31,7 @@ export default function WhiteList (){
         setWhiteList(response.data);
     }
 
-    useEffect(async () => {
+    useEffect(() => {
         try{
             fetchData();
             console.log("from white list component, white list numbers", whiteList)
@@ -97,15 +97,17 @@ export default function WhiteList (){
                         <View>
                             <VStack>
                                 <Input  value={whiteListNumberToAdd}
-                                        onChangeText={setwhiteListNumberToAdd}
-                                        w='150'
-                                        mt="2"
-                                        ml="2"
+                                        onChangeText={(value)=>setwhiteListNumberToAdd(value)}
+                                        w='180'
+                                        mt="3"
+                                        ml="3"
+                                        mb="2"
                                 />
-                                <Text>
+                                <Text style={listingsStyles.subtitle}>
                                     Add white list number
                                 </Text>
-                                <Button w="80"
+                                <Button w="20"
+                                        ml="3"
                                         onPress={()=>addWhiteListNumber(whiteListNumberToAdd)}>
                                     Add
                                 </Button>
@@ -125,11 +127,11 @@ export default function WhiteList (){
                                 >
                                     <VStack>
                                         <Text style={listingsStyles.listing}>
-                                            {whiteListEntry.whiteListedNumber}
+                                            Number: {whiteListEntry.whiteListedNumber}
                                         </Text>
                                         <Button onPress={()=>handleNumberToBlock(whiteListEntry.whiteListedNumber)}
                                                 w="100"
-                                                ml="4"
+                                                ml="2"
                                         >
                                             block
                                         </Button>

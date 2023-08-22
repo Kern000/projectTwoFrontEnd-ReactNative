@@ -91,11 +91,13 @@ export const listingsStyles = StyleSheet.create({
                     fontsize: 15,
                     marginLeft: 5,
                     marginBottom: 3,
-                    marginTop: 3,
-                    fontWeight: 'semi-bold'
+                    marginTop: 3
                 },
     background: {   
                     backgroundColor: '#f5f5f5'
+                },
+    subtitle:   {
+                    marginLeft: 4
                 }
 })
 

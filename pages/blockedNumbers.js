@@ -1,6 +1,6 @@
 import { useState, useContext, useCallback, useEffect } from 'react';
 import { ScrollView, View } from 'react-native';
-import { NativeBaseProvider, Heading, VStack, FormControl, Button, Text, Link } from "native-base";
+import { NativeBaseProvider, Heading, VStack, FormControl, Button, Text, Link, Input } from "native-base";
 
 import { UserContext } from '../context/userContext';
 import { SettingsContext } from '../context/settingsContext';
@@ -13,7 +13,7 @@ import { listingsStyles } from '../styles';
 export default function BlockedNumbers(){
 
     const { paramsId } = useContext(UserContext);
-    const [ blockedNumberToAdd, setBlockedNumberToAdd ] = useState('');
+    const [ blockedNumberToAdd, setBlockedNumberToAdd ] = useState();
     const [ errorNotification, setErrorNotification] = useState('');
    
     const { blockedNumbers,
@@ -32,7 +32,7 @@ export default function BlockedNumbers(){
         setBlockedNumbers(response.data);
     }
 
-    useEffect(async () => {
+    useEffect(() => {
         try{
             fetchData();
             console.log("from blocked numbers component, blocked numbers", whiteList)
@@ -52,8 +52,9 @@ export default function BlockedNumbers(){
                 'blockedNumber': `${number}`,
                 'timeStamp': Date.now()
             })
+            fetchData();
         } else {
-            setErrorNotification('invalid phone number')
+            setErrorNotification('invalid phone number');
         }
     }
 
@@ -63,6 +64,7 @@ export default function BlockedNumbers(){
             'whiteListedNumber': `${number}`,
             'timeStamp': Date.now()
         })
+        fetchData();
     }
 
     async function deleteBlockedNumber (number){
@@ -76,6 +78,7 @@ export default function BlockedNumbers(){
     const handleNumberToWhiteList = (number) => {
         addWhiteListNumber(number);
         deleteBlockedNumber(number);
+        fetchData();
     }
 
     return (
@@ -98,15 +101,17 @@ export default function BlockedNumbers(){
                         <View>
                             <VStack>
                                 <Input  value={blockedNumberToAdd}
-                                        onChangeText={setBlockedNumberToAdd}
-                                        w='150'
-                                        mt="2"
-                                        ml="2"
+                                        onChangeText={(value)=>setBlockedNumberToAdd(value)}
+                                        w='180'
+                                        mt="3"
+                                        ml="3"
+                                        mb="2"
                                 />
-                                <Text>
+                                <Text style={listingsStyles.subtitle}>
                                     Add Block Number
                                 </Text>
-                                <Button w="80"
+                                <Button w="20"
+                                        ml="3"
                                         onPress={()=>addBlockedNumber(blockedNumberToAdd)}>
                                     Add
                                 </Button>
@@ -126,11 +131,11 @@ export default function BlockedNumbers(){
                                 >
                                     <VStack>
                                             <Text style={listingsStyles.listing}>
-                                                {blockedNumberEntry.blockedNumber}
+                                                Number: {blockedNumberEntry.blockedNumber}
                                             </Text>
                                             <Button onPress={()=>handleNumberToWhiteList(blockedNumberEntry.blockedNumber)}
                                                 w="100"
-                                                ml="4"
+                                                ml="2"
                                             >
                                                 white list
                                             </Button>
