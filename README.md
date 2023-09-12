@@ -39,35 +39,27 @@ React native was explored, along with packages like navigation stack, async stor
 
 Simple colors and backgrounds were used for easy customizability as this was meant as a white label application. Users may use this frontend and backend template to conduct simple adaptation in an almost plug and play manner for their event driven application.
 
-Landing Page<br>
 <p></p>
 <img src="./assets/landing-page.jpg" alt="Landing_Page" width="250"/>
 
-Main Page (Toggle On)<br>
 <p></p>
 <img src="./assets/main-page.jpg" alt="Main_Page" width="250"/>
 
-Main Page (Toggle Off)<br>
 <p></p>
 <img src="./assets/main-page2.jpg" alt="Main_Page" width="250"/>
 
-Login Page (Firebase)<br>
 <p></p>
 <img src="./assets/login.jpg" alt="login_Page" width="250"/>
 
-Register Page (Firebase)<br>
 <p></p>
 <img src="./assets/register.jpg" alt="register_Page" width="250"/>
 
-Settings Page<br>
 <p></p>
 <img src="./assets/settings.jpg" alt="settings_Page" width="250"/>
 
-Blocked Numbers Page<br>
 <p></p>
 <img src="./assets/blocked-number.jpg" alt="blockednumber_Page" width="250"/>
 
-WhiteList Numbers Page<br>
 <p></p>
 <img src="./assets/whitelist-number.jpg" alt="whitelistnumber_Page" width="250"/>
 
