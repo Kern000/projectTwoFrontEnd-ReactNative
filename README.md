@@ -6,6 +6,7 @@ This app runs on Android Only (or web - though not recommended)
 
 Install Expo Go on Android phone from the app store.
 Then enter the following url in the app or scan the below QR code.
+Or if you would like to just take a look at the design and functionality, scroll down to the "Design" Section below.
 
 exp://u.expo.dev/update/07839213-5fd3-4440-998d-498c7cee413f
 
@@ -37,6 +38,30 @@ React native was explored, along with packages like navigation stack, async stor
 ----- Design -----
 
 Simple colors and backgrounds were used for easy customizability as this was meant as a white label application. Users may use this frontend and backend template to conduct simple adaptation in an almost plug and play manner for their event driven application.
+
+Landing Page
+<img src="./assets/landing-page.jpg" alt="Landing_Page" width="250"/>
+
+Main Page (Toggle On)
+<img src="./assets/main-page.jpg" alt="Main_Page" width="250"/>
+
+Main Page (Toggle Off)
+<img src="./assets/main-page2.jpg" alt="Main_Page" width="250"/>
+
+Login Page (Firebase)
+<img src="./assets/login.jpg" alt="login_Page" width="250"/>
+
+Register Page (Firebase)
+<img src="./assets/register.jpg" alt="register_Page" width="250"/>
+
+Settings Page
+<img src="./assets/settings.jpg" alt="settings_Page" width="250"/>
+
+Blocked Numbers Page
+<img src="./assets/blocked-number.jpg" alt="blockednumber_Page" width="250"/>
+
+WhiteList Numbers Page
+<img src="./assets/whitelist-number.jpg" alt="whitelistnumber_Page" width="250"/>
 
 ----- Key Capabilities Tested -----
 
