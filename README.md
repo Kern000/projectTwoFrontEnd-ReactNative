@@ -1,6 +1,6 @@
 ------------ Scam Call Blocker Mockup ------------
 
-This app runs on Android Only (or web - though not recommended)
+This app runs on Android Only (or web - though not recommended. It may work for iOS but not tested)
 
 --- Steps to view app ---
 
