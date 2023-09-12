@@ -1,8 +1,8 @@
------------- Scam Call Blocker Mockup ------------
+<h2> Scam Call Blocker Mockup </h2>
 
 This app runs on Android Only (or web - though not recommended. It may work for iOS but not tested)
 
---- Steps to use app ---
+<h3> Steps to use app </h3>
 
 Install Expo Go on Android phone from the app store.
 Then enter the following url in the app or scan the below QR code.
@@ -15,7 +15,7 @@ exp://u.expo.dev/update/07839213-5fd3-4440-998d-498c7cee413f
 
 Backend source codes can be accessed here: <a href="https://github.com/Kern000/projectTwoBackendServer"> Backend Project Two </a>
 
------------- Project Description ------------
+<h3> Project Description </h3>
 
 This is 'Project Two' conducted at week 13 of Trent Global's Diploma in Web Application Development.
 
@@ -28,17 +28,20 @@ Interestingly, a scam call blocker is commonly regarded as impossible due to the
 In my opinion, this problem can be tackled in a few directions:
 
 1. Scam blocker can be incorporated at a telecommunications provider level, redirecting phone calls with suspicious call patterns, and using AI voice recognition to determine if a caller is likely to be a scammer from his/her opening sentences and voice-recordings.
+
 2. Scam blocker can use packages like native call detection and 'nope' call blocker to redirect user to the block function built into the phone. However, there is little benefit in providing an app that has no preemptive blocking.
+
 3. Scam blocker may record phone numbers marked by users as spam, pass it through an algorithm at telecommunications provider to determine if the number is indeed used for scam or other nefarious purposes, and block the number or monitor it before it is redirected to end-receivers. However, this may have privacy concerns if the call verification is performed by human beings.
+
 4. This app may use push notifications to awaken the app during a call, and subsequently, push the call to the background.
 
 Ultimately, the essence of this project as a white label application ready for event driven architecture, could hold many possibilities. Imagine a quantitative investment strategy that alerts you on the go when trading signals appear. Imagine a six-sigma production line that alerts you when issues are detected, just like how 'Andons' alert managers in the Toyota system. There are many possibilities to event driven applications as well as the information that is created, read, updated, and deleted in the process.
 
------ Technologies used -----
+<h3> Technologies used </h3>
 
 React native was explored, along with packages like navigation stack, async storage, orientation locker, and firebase authentication. During the early stages, android studio and virtual machine were used for testing purposes. Subsequently during development, react hooks were used to pursue functional programming, allowing for the use of efficient contexts as compared to the passing of props in traditional React object oriented programming.
 
------ Design -----
+<h3> Design </h3>
 
 Simple colors and backgrounds were used for easy customizability as this was meant as a white label application. Users may use this frontend and backend template to conduct simple adaptation in an almost plug and play manner for their event driven application.
 
@@ -66,7 +69,7 @@ Simple colors and backgrounds were used for easy customizability as this was mea
 <p></p>
 <img src="./assets/whitelist-number.jpg" alt="whitelistnumber_Page" width="250"/>
 
------ Key Capabilities Tested -----
+<h3> Key Capabilities Tested </h3>
 
 1. There is FrontEnd regex validation for all input fields to prevent XSS injections. Mongoose (MongoDB) schema perform backend validation to prevent unwanted and bad datasets from impairing data usage. Error messages on the frontend communicates user error and guides users to take corrective actions.
 
@@ -84,7 +87,7 @@ Simple colors and backgrounds were used for easy customizability as this was mea
 
 8. Lastly, both Firebase and MongoDb schema require unique emails, this prevent users from using the same email to form multiple accounts on the application.
 
------ Limitations -----
+<h3> Limitations </h3>
 
 1. AppState management and redux have not been incorporated to manage Application Life cycle. This means that the app only performs its function when it is active on the phone, but not when it is in the background, suspended, or when inactive.
 
@@ -92,6 +95,6 @@ Simple colors and backgrounds were used for easy customizability as this was mea
 
 3. Third, multiple axios calls are made during the CRUD of the 'settings' screen and can be streamlined through amalgamation. Having multiple axios calls may lead to performance implications.
 
------ Summary -----
+<h3> Summary </h3>
 
 In summary, Scam blocker is a react native application designed for future purposes of appState management and event driven API. While currently purposed for the addition of call blocking capabilities, it is designed for easy adaptation into other event driven applications, horizontal scalability, as well as incorporation into a corporation's processes.
