@@ -6,7 +6,6 @@ This app runs on Android Only (or web - though not recommended. It may work for 
 
 Install Expo Go on Android phone from the app store.
 Then enter the following url in the app or scan the below QR code.
-
 <h5> Or if you would like to skip straight to viewing the app, scroll down to the "Design" Section below. </h5>
 
 exp://u.expo.dev/update/07839213-5fd3-4440-998d-498c7cee413f
