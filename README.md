@@ -1,6 +1,6 @@
 <h2> Scam Call Blocker Mockup </h2>
 
-This app runs on Android Only (or web - though not recommended. It may work for iOS but not tested) - (* Also due to free hosting, the page after login/registration may take a few tries to access. Continue pressing the 'login' or 'registration' button or you may look at the navigation in the "Design" section below)
+This app runs on Android (or web - though not recommended. It may work for iOS but not tested) - (* Also due to free hosting, the page after login/registration may take a few tries to access. Continue pressing the 'login' or 'registration' button or you may look at the navigation in the "Design" section below)
 
 <h3> Steps to use app </h3>
 
