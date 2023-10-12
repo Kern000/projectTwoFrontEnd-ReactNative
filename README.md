@@ -46,10 +46,10 @@ React native was explored, along with packages like navigation stack, async stor
 Simple colors and backgrounds were used for easy customizability as this was meant as a white label application. Users may use this frontend and backend template to conduct simple adaptation in an almost plug and play manner for their event driven application.
 
 <p></p>
-<img src="./assets/landing-page.jpg" alt="Landing_Page" width="250"/>
+<img src="./assets/landing-page.jpg" alt="Landing_Page" width="500"/>
 
 <p></p>
-<img src="./assets/main-page.jpg" alt="Main_Page" width="250"/>
+<img src="./assets/main-page.jpg" alt="Main_Page" width="500"/>
 
 <p></p>
 <img src="./assets/main-page2.jpg" alt="Main_Page" width="250"/>
