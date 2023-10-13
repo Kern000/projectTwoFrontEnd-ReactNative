@@ -38,7 +38,7 @@ In my opinion, this problem can be tackled in a few directions:
 Ultimately, the essence of this project as a white label application ready for event driven architecture, could hold many possibilities. Imagine a quantitative investment strategy that alerts you on the go when trading signals appear. Imagine a six-sigma production line that alerts you when issues are detected, just like how 'Andons' alert managers in the Toyota system. There are many possibilities to event driven applications as well as the information that is created, read, updated, and deleted in the process.
 
 <h3> Target Audience </h3>
-In the context of scam call blocker, anyone who find foreign scam call numbers a nuisance may adopt it.
+In the context of scam call blocker, anyone who find foreign scam call numbers a nuisance may adopt this app.
 
 <h3> Technologies used </h3>
 
