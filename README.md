@@ -37,6 +37,9 @@ In my opinion, this problem can be tackled in a few directions:
 
 Ultimately, the essence of this project as a white label application ready for event driven architecture, could hold many possibilities. Imagine a quantitative investment strategy that alerts you on the go when trading signals appear. Imagine a six-sigma production line that alerts you when issues are detected, just like how 'Andons' alert managers in the Toyota system. There are many possibilities to event driven applications as well as the information that is created, read, updated, and deleted in the process.
 
+<h3> Target Audience </h3>
+In the context of scam call blocker, anyone who find foreign scam call numbers a nuisance may adopt it.
+
 <h3> Technologies used </h3>
 
 React native was explored, along with packages like navigation stack, async storage, orientation locker, and firebase authentication. During the early stages, android studio and virtual machine were used for testing purposes. Subsequently during development, react hooks were used to pursue functional programming, allowing for the use of efficient contexts as compared to the passing of props in traditional React object oriented programming.
@@ -87,6 +90,19 @@ Simple colors and backgrounds were used for easy customizability as this was mea
 
 8. Lastly, both Firebase and MongoDb schema require unique emails, this prevent users from using the same email to form multiple accounts on the application.
 
+<h3> Test Cases </h3>
+Test Name: Register email and password
+Test case: key in a valid email format ("XXXX"@"mail".com) and password and submit.
+Expected outcome: Registration should be successful and redirect to login by Firebase.
+
+Test Name: Login email and password
+Test case: key in a valid email format ("XXXX"@"mail".com) and password and submit.
+Expected outcome: Login should be successful and redirect to settings page.
+
+Test Name: Blocking and whitelist numbers
+Test case: key in a phone number in the blocked number text box in manage blocked numbers and submit.
+Expected outcome: Number keyed in should appear with the rest of the 'blocked' numbers.
+
 <h3> Limitations </h3>
 
 1. AppState management and redux have not been incorporated to manage Application Life cycle. This means that the app only performs its function when it is active on the phone, but not when it is in the background, suspended, or when inactive.
@@ -98,3 +114,7 @@ Simple colors and backgrounds were used for easy customizability as this was mea
 <h3> Summary </h3>
 
 In summary, Scam blocker is a react native application designed for future purposes of appState management and event driven API. While currently purposed for the addition of call blocking capabilities, it is designed for easy adaptation into other event driven applications, horizontal scalability, as well as incorporation into a corporation's processes.
+
+<h3> External Packages/Code </h3>
+Firebase authentication, async-storage, react-navigation/native-stack, axios, expo, native-base, react-native orientation locker, react-native safe area context, react-native web.
+
