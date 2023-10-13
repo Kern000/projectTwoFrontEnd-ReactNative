@@ -80,41 +80,40 @@ Simple colors and backgrounds were used for easy customizability as this was mea
 
 3. React native touchables have been incorporate for better UI/UX.
 
-4. There is real time update to the frontend user from the database with regard to their lists of blocked number, whitelisted country codes, and whitelisted numbers. This is achieved by optional chaining of the .map function to render the data as it is being updated.
+4. There is real time update to the frontend user from the database with regard to their lists of blocked number, whitelisted country codes, and whitelisted numbers. Optional chaining of the .map function is also employed to give flexibility in the rendering the reloaded data. This is because the data fetching is not instantaneous, therefore, react has to give time before rendering.
 
 5. Landing page communicates the clear purpose of the App and navigates to the main page after a short period of time or if the user presses on the screen.
 
-6. Backend server is separated into the schema layer, service layer (which includes the Data Access Layer), controller layer for sending http responses and response data for use in the frontend, router layer, and middleware for firebase authorization based on Json web token. All these lead to better abstraction and separation of concerns and code reuseability. Furthermore, entry logics were separated from user logics, where the latter is used to retrieve params for routes to ensure that a user is only able to access his own information in the database.
+6. Backend server is separated into the schema layer, service layer (includes the Data Access Layer), controller layer for sending http responses and data for frontend use, router layer, and middleware for firebase authorization based on Json web token. All these lead to better abstraction and separation of concerns and code reuseability.
 
 7. Both referencing and embedding structure is incorporated in MongoDB. User document is linked to data entry documents, which may contain lightly nested arrays. This structure allows sharding and adaptation to different user needs based on their entries. This allows for fast retrieval of data as documents can be indexed based on their users rather than the data entry fields which may be large in numbers. These allow horizontal scalability without sacrificing the app's performance.
 
-8. Lastly, both Firebase and MongoDb schema require unique emails, this prevent users from using the same email to form multiple accounts on the application.
+8. Lastly, both Firebase and MongoDb schema require unique emails. This prevents users from using the same email to form multiple accounts on the application.
 
 <h3> Test Cases </h3>
 Test Name: Register email and password </br>
 Test case: key in a valid email format ("XXXX"@"mail".com) and password and submit. </br>
-Expected outcome: Registration should be successful and redirect to login by Firebase. </br></br>
+Expected outcome: Registration should be successful and user is redirected to login by Firebase. </br></br>
 
 Test Name: Login email and password </br>
 Test case: key in a valid email format ("XXXX"@"mail".com) and password and submit. </br>
-Expected outcome: Login should be successful and redirect to settings page. </br></br>
+Expected outcome: Login should be successful and user is redirected to the settings page. </br></br>
 
 Test Name: Blocking and whitelist numbers </br>
-Test case: key in a phone number in the blocked number text box in manage blocked numbers and submit. </br>
-Expected outcome: Number keyed in should appear with the rest of the 'blocked' numbers. </br></br>
+Test case: key in a phone number in the block number text box in the 'manage blocked numbers' page and submit. </br>
+Expected outcome: The number keyed in should appear with the rest of the 'blocked' numbers. </br></br>
 
 <h3> Limitations </h3>
 
-1. AppState management and redux have not been incorporated to manage Application Life cycle. This means that the app only performs its function when it is active on the phone, but not when it is in the background, suspended, or when inactive.
+1. AppState management and redux have not been incorporated to manage Application Life cycle. This means that the app only performs its function when it is active on the phone, but not when it is in the background, suspended, or when inactive. The actual blocking capability has not been implemented.
 
 2. Firebase token refresh has not been incorporated. This is a major shortcoming as tokens only last for an hour and if the phone is incompatible with async storage, it would not be able to store the token. Future versions would have to incorporate token refresh so that users would not have to keep registering accounts. As such, the current state of the app would largely be used for testing and exploratory purposes.
 
-3. Third, multiple axios calls are made during the CRUD of the 'settings' screen and can be streamlined through amalgamation. Having multiple axios calls may lead to performance implications.
+3. Third, multiple axios calls are made during data entry and update in the 'settings' screen. This can be streamlined through amalgamation. Having multiple axios calls may lead to performance implications.
 
 <h3> Summary </h3>
 
-In summary, Scam blocker is a react native application designed for future purposes of appState management and event driven API. While currently purposed for the addition of call blocking capabilities, it is designed for easy adaptation into other event driven applications, horizontal scalability, as well as incorporation into a corporation's processes.
+In summary, Scam blocker is a react native application designed for future purposes of appState management and event driven API. While currently purposed for the addition of call blocking capabilities, it is designed for easy adaptation into other event driven applications, and furthermore, horizontal scalability.
 
-<h3> External Packages/Code </h3>
-Firebase authentication, async-storage, react-navigation/native-stack, axios, expo, native-base, react-native orientation locker, react-native safe area context, react-native web.
-
+<h3> Credits to External code and assets </h3>
+Special thanks to Freepik for shield icon logo
