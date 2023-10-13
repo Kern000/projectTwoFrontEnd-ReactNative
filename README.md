@@ -93,15 +93,15 @@ Simple colors and backgrounds were used for easy customizability as this was mea
 <h3> Test Cases </h3>
 Test Name: Register email and password </br>
 Test case: key in a valid email format ("XXXX"@"mail".com) and password and submit. </br>
-Expected outcome: Registration should be successful and redirect to login by Firebase. </br>
+Expected outcome: Registration should be successful and redirect to login by Firebase. </br></br>
 
 Test Name: Login email and password </br>
 Test case: key in a valid email format ("XXXX"@"mail".com) and password and submit. </br>
-Expected outcome: Login should be successful and redirect to settings page. </br>
+Expected outcome: Login should be successful and redirect to settings page. </br></br>
 
 Test Name: Blocking and whitelist numbers </br>
 Test case: key in a phone number in the blocked number text box in manage blocked numbers and submit. </br>
-Expected outcome: Number keyed in should appear with the rest of the 'blocked' numbers. </br>
+Expected outcome: Number keyed in should appear with the rest of the 'blocked' numbers. </br></br>
 
 <h3> Limitations </h3>
 
