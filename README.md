@@ -97,11 +97,11 @@ Expected outcome: Registration should be successful and user is redirected to lo
 
 Test Name: Login email and password </br>
 Test case: key in a valid email format ("XXXX"@"mail".com) and password and submit. </br>
-Expected outcome: Login should be successful and user is redirected to the settings page. </br></br>
+Expected outcome: Login should be successful and user is redirected to the settings page. </br>
 
 Test Name: Blocking and whitelist numbers </br>
 Test case: key in a phone number in the block number text box in the 'manage blocked numbers' page and submit. </br>
-Expected outcome: The number keyed in should appear with the rest of the 'blocked' numbers. </br></br>
+Expected outcome: The number keyed in should appear with the rest of the 'blocked' numbers. </br>
 
 <h3> Limitations </h3>
 
