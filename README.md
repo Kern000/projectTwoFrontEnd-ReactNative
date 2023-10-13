@@ -115,5 +115,5 @@ Expected outcome: The number keyed in should appear with the rest of the 'blocke
 
 In summary, Scam blocker is a react native application designed for future purposes of appState management and event driven API. While currently purposed for the addition of call blocking capabilities, it is designed for easy adaptation into other event driven applications, and furthermore, horizontal scalability.
 
-<h3> Credits to External code and assets </h3>
+<h3> Credits to external assets </h3>
 Special thanks to Freepik for shield icon logo
