@@ -91,17 +91,17 @@ Simple colors and backgrounds were used for easy customizability as this was mea
 8. Lastly, both Firebase and MongoDb schema require unique emails, this prevent users from using the same email to form multiple accounts on the application.
 
 <h3> Test Cases </h3>
-Test Name: Register email and password
-Test case: key in a valid email format ("XXXX"@"mail".com) and password and submit.
-Expected outcome: Registration should be successful and redirect to login by Firebase.
+Test Name: Register email and password </br>
+Test case: key in a valid email format ("XXXX"@"mail".com) and password and submit. </br>
+Expected outcome: Registration should be successful and redirect to login by Firebase. </br>
 
-Test Name: Login email and password
-Test case: key in a valid email format ("XXXX"@"mail".com) and password and submit.
-Expected outcome: Login should be successful and redirect to settings page.
+Test Name: Login email and password </br>
+Test case: key in a valid email format ("XXXX"@"mail".com) and password and submit. </br>
+Expected outcome: Login should be successful and redirect to settings page. </br>
 
-Test Name: Blocking and whitelist numbers
-Test case: key in a phone number in the blocked number text box in manage blocked numbers and submit.
-Expected outcome: Number keyed in should appear with the rest of the 'blocked' numbers.
+Test Name: Blocking and whitelist numbers </br>
+Test case: key in a phone number in the blocked number text box in manage blocked numbers and submit. </br>
+Expected outcome: Number keyed in should appear with the rest of the 'blocked' numbers. </br>
 
 <h3> Limitations </h3>
 
