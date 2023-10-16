@@ -1,6 +1,6 @@
 import { useState, useContext, useCallback, useEffect } from 'react';
 import { ScrollView, View } from 'react-native';
-import { NativeBaseProvider, Heading, VStack, FormControl, Button, Text, Link, Input } from "native-base";
+import { NativeBaseProvider, Heading, VStack, FormControl, Button, Text, Link, Input, HStack, Divider } from "native-base";
 
 import { UserContext } from '../context/userContext';
 import { SettingsContext } from '../context/settingsContext';
@@ -15,6 +15,10 @@ export default function BlockedNumbers(){
     const { paramsId } = useContext(UserContext);
     const [ blockedNumberToAdd, setBlockedNumberToAdd ] = useState();
     const [ errorNotification, setErrorNotification] = useState('');
+
+    const [searchParams, setSearchParams] = useState('');
+    const [foundSearchNumber, setFoundSearchNumber] = useState('');
+    const [searchNotification, setSearchNotification] = useState('');
    
     const { blockedNumbers,
             setBlockedNumbers,
@@ -39,7 +43,7 @@ export default function BlockedNumbers(){
         } catch (error) {
             console.error('Failed to retrieve data: ', error)
         }  
-    },[])
+    },[foundSearchNumber])
 
     const validatePhoneNumber = /^[0-9+ -]{0,15}$/;
 
@@ -72,6 +76,63 @@ export default function BlockedNumbers(){
             await APIHandler.patch(`/entry/${paramsId}/blockedNumbers/blockedNumber/${number}`)
         } catch {
             console.error('failed to delete number')
+        }
+    }
+
+    const searchFullNumber = async (number) => {
+
+        setSearchNotification('');
+
+        const blockedNumberValidation = validatePhoneNumber.test(number);
+
+        if (blockedNumberValidation) {
+            try{
+                let response = await APIHandler.get(`/entry/${paramsId}/blockedNumbers/blockedNumber?search=${searchParams}`);
+                console.log(response.data);
+                setFoundSearchNumber(response.data); 
+            } catch {
+                setSearchNotification('No matching number found');
+            }
+        } else {
+            setSearchNotification('invalid number format');
+        }
+    }
+
+    const searchPlusNumber = async () => {
+
+        setErrorNotification('');
+
+        const blockedNumberValidation = validatePhoneNumber.test(number);
+
+        if (blockedNumberValidation){
+            try {
+                let response = await APIHandler.get(`/entry/${paramsId}/blockedNumbers/blockedNumber/searchPlus`)
+                console.log('response.data here', response.data);
+                setFoundSearchNumber(response.data);
+            } catch (error) {
+                setErrorNotification('No matching numbers');
+            }
+        } else {
+            setErrorNotification('invalid number format');
+        }
+    }
+    
+    const searchMinusNumber = async () => {
+
+        setErrorNotification('');
+
+        const blockedNumberValidation = validatePhoneNumber.test(number);
+
+        if (blockedNumberValidation) {
+            try{
+                let response = await APIHandler.get(`/entry/${paramsId}/blockedNumbers/blockedNumber/searchMinus`)
+                console.log('response.data here', response.data);
+                setFoundSearchNumber(response.data);
+            } catch (error) {
+                setErrorNotification('No matching numbers');
+            }
+        } else {
+            setErrorNotification('invalid number format');
         }
     }
 
@@ -121,7 +182,75 @@ export default function BlockedNumbers(){
                             </VStack>
                         </View>
                         <View>
-                            <Heading>
+                            <Text style={listingsStyles.subtitle}>
+                                Search For Blocked Number
+                            </Text>
+                            <VStack>
+                                <Input  value={searchParams}
+                                        onChangeText={(value)=>setSearchParams(value)}
+                                        w='180'
+                                        mt="3"
+                                        ml="3"
+                                        mb="2"
+                                />
+                                <Button w="20"
+                                        ml="3"
+                                        onPress={()=>searchFullNumber(searchParams)}
+                                        style={{fontSize:'10px'}}   
+                                    >
+                                    Full No.
+                                </Button>
+                                <Divider></Divider>
+                                <View>
+                                    Or Filter based on:
+                                </View>
+                                <Button w="50"
+                                        ml="3"
+                                        onPress={()=>searchPlusNumber()}
+                                        style={{fontSize:'10px'}}
+                                >
+                                    find all '+' nos.
+                                </Button>
+                                <Button w="50"
+                                        ml="3"
+                                        onPress={()=>searchMinusNumber()}
+                                        style={{fontSize:'10px'}}
+                                >
+                                    find all '-' nos.
+                                </Button>
+                                <Text>
+                                    {searchNotification}
+                                </Text>
+                            </VStack>
+                        </View>
+                        <View>
+                            <View>
+                                {searchNotification}
+                            </View>
+                        {foundSearchNumber?.map((foundSearchNumber, index) => (
+                            <View>
+                                <View>
+                                    Search Results
+                                </View>
+                                <FormControl key={index}
+                                >
+                                    <VStack>
+                                            <Text style={listingsStyles.listing}>
+                                                Number: {foundSearchNumber.blockedNumber}
+                                            </Text>
+                                            <Button onPress={()=>handleNumberToWhiteList(foundSearchNumber.blockedNumber)}
+                                                w="100"
+                                                ml="2"
+                                            >
+                                                white list
+                                            </Button>
+                                    </VStack>
+                                </FormControl>
+                            </View>
+                        ))}
+                        </View>
+                        <View>
+                        <Heading>
                                 Blocked Numbers
                             </Heading>
                         </View>
