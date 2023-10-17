@@ -52,27 +52,30 @@ export default function Example() {
   const handleSuccessfulRegistration = async (emailAddress, idToken) => {
 
     console.log('handle successful registration hit');
-
-    await setAuthHeader(idToken);
-
     try {
-        let response = await APIHandler.post("/user/register", {'emailAddress': emailAddress})
-        
-        setUserName(emailAddress);
-        const paramsId = response.data;
+      await setAuthHeader(idToken);
+    
+      try {
+          let response = await APIHandler.post("/user/register", {'emailAddress': emailAddress})
+          
+          setUserName(emailAddress);
+          const paramsId = response.data;
 
-        setParamsId(paramsId);
-        console.log('paramsId:', paramsId)
+          setParamsId(paramsId);
+          console.log('paramsId:', paramsId)
 
-        localStorage.setItem("token", idToken);
-        await AsyncStorage.setItem("token", idToken);
+          localStorage.setItem("token", idToken);
+          await AsyncStorage.setItem("token", idToken);
 
-        navigateToSettings();
+          navigateToSettings();
 
-      } catch (error) {
-        console.log('/user/register encountered error', error);
-        setErrorNotification('Email already in use')
-        clearAuthHeader();
+        } catch (error) {
+          console.log('/user/register encountered error', error);
+          setErrorNotification('An error occurred in registration, please try again')
+          clearAuthHeader();
+        }
+    } catch (error){
+      setErrorNotification('Email/user already in use')
     }
   }
 
@@ -105,6 +108,7 @@ export default function Example() {
     })
     .catch((error) => {
         console.log("Firebase Error:", error.code, error.message);
+        setErrorNotification('Email already in use')
     })
   }
       
@@ -180,13 +184,7 @@ export default function Example() {
                               onPress={submitRegistrationForm}
                       >
                         SignUp
-                      </Button>
-                      <View>
-                        <Text>
-                        {errorNotification}
-                        </Text>
-                      </View>
-          
+                      </Button>         
                       <HStack justifyContent="center">
                         <Text fontSize="sm" 
                               color="muted.700" 
@@ -200,6 +198,13 @@ export default function Example() {
                           </Text>
                         </TouchableHighlight>
                       </HStack>
+                      <View>
+                        {errorNotification?
+                          (<Text style={{color:'red', fontSize:'16px'}}>
+                            {errorNotification}
+                          </Text>) : (<Text></Text>)
+                        }
+                      </View>
                     </VStack>
                   </VStack>
                 </Box>

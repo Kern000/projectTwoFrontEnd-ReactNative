@@ -157,7 +157,7 @@ export default function BlockedNumbers(){
                                         ml="3"
                                         mb="3"
                                 />
-                                <Text mb="2" ml="3" style={listingsStyles.subtitle}>
+                                <Text mb="3" ml="3" style={{fontSize:'18px', fontWeight:'600', textDecorationLine:'underline'}}>
                                     Add Block Number
                                 </Text>
                                 <Button w="20"
@@ -172,8 +172,9 @@ export default function BlockedNumbers(){
                             </VStack>
                         </View>
                         <View>
-                            <Text   style={listingsStyles.subtitle}
+                            <Text   style={{fontSize:'18px', fontWeight:'600', textDecorationLine:'underline'}}
                                     mb="3"
+                                    ml="3"
                             >
                                 Search For Blocked Number
                             </Text>
@@ -194,12 +195,12 @@ export default function BlockedNumbers(){
                                     Full No.
                                 </Button>
                                 <View style={{marginTop:'10px'}}>
-                                    <Heading    style={{textDecorationLine:'underline'}}
-                                                mb="2"
-                                                ml="3"
-                                    >
-                                    Or Filter based on:
-                                    </Heading>
+                                    <Text   style={{fontSize:'18px', fontWeight:'600', textDecorationLine:'underline'}}
+                                    mb="3"
+                                    ml="3"
+                                    >                           
+                                        Or Filter based on:
+                                    </Text>
                                 </View>
                                 <Button w="100"
                                         ml="3"
@@ -217,21 +218,18 @@ export default function BlockedNumbers(){
                                 >
                                     find all '-' nos.
                                 </Button>
-                                <Text>
-                                    {searchNotification}
-                                </Text>
                             </VStack>
                         </View>
                         <View>
                             <View>
-                                <Text style={{color: 'red'}}>
+                                <Text style={{color: 'red'}} ml="2">
                                     {searchNotification}
                                 </Text>
                             </View>
                         {foundSearchNumber?.map((foundSearchNumber, index) => (
                             <View>
                                 <View>
-                                    <Text style={{fontSize:'18px', fontWeight:"600", textDecorationLine:"underline"}}>
+                                    <Text ml="3" mb="2" style={{fontSize:'14px', fontWeight:"400", textDecorationLine:"underline"}}>
                                         Search Results
                                     </Text>
                                 </View>
@@ -253,7 +251,7 @@ export default function BlockedNumbers(){
                         ))}
                         </View>
                         <View>
-                            <Heading>
+                            <Heading ml="3">
                                 Blocked Numbers
                             </Heading>
                         </View>
@@ -262,12 +260,12 @@ export default function BlockedNumbers(){
                                 <FormControl key={index}
                                 >
                                     <VStack>
-                                            <Text style={listingsStyles.listing}>
+                                            <Text style={listingsStyles.listing} ml="3">
                                                 Number: {blockedNumberEntry.blockedNumber}
                                             </Text>
                                             <Button onPress={()=>handleNumberToWhiteList(blockedNumberEntry.blockedNumber)}
                                                 w="100"
-                                                ml="2"
+                                                ml="3"
                                             >
                                                 white list
                                             </Button>

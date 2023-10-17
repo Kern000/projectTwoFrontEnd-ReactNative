@@ -48,30 +48,34 @@ export default function Login (){
 
     const handleSuccessfulLogin = async (emailAddress, idToken) => {
 
-        setAuthHeader(idToken);
+        try {
+            setAuthHeader(idToken);
 
-        console.log('handleLogin', emailAddress)
-        console.log('idtoken123', idToken)
+            console.log('handleLogin', emailAddress)
+            console.log('idtoken123', idToken)
 
-        localStorage.setItem('token', idToken)
+            localStorage.setItem('token', idToken)
 
-        try{
-            let response = await APIHandler.post("/user/login", {'emailAddress':emailAddress, 'idToken':idToken})
-            console.log('response during login here', response.data);
+            try{
+                let response = await APIHandler.post("/user/login", {'emailAddress':emailAddress, 'idToken':idToken})
+                console.log('response during login here', response.data);
 
-            setUserName(emailAddress);
+                setUserName(emailAddress);
 
-            const paramsId = response.data;
-            console.log('paramsId at login here', paramsId);
-            setParamsId(paramsId);
+                const paramsId = response.data;
+                console.log('paramsId at login here', paramsId);
+                setParamsId(paramsId);
 
-            console.log('Login Successful', paramsId);
-            navigateToSettings();
+                console.log('Login Successful', paramsId);
+                navigateToSettings();
 
-        } catch(error) {
-            console.log('/user/login encountered error', error);
-            setErrorNotification('User login failed, register an account')
-            clearAuthHeader();
+            } catch(error) {
+                console.log('/user/login encountered error', error);
+                setErrorNotification('User login failed, please try again')
+                clearAuthHeader();
+            }
+        } catch (error) {
+            setErrorNotification('User expired, please register and account')
         }
     }
 
@@ -165,11 +169,6 @@ export default function Login (){
                             >
                                 Login
                             </Button>
-                            <View>
-                                <Text>
-                                {errorNotification}
-                                </Text>
-                            </View>
                         </VStack>
 
                         <HStack justifyContent="center">
@@ -187,12 +186,14 @@ export default function Login (){
                                 </Text>
                             </TouchableHighlight>
                         </HStack>
+                        <View>
+                            {errorNotification?
+                            (<Text style={{color:'red', fontSize:'16px'}}>
+                                {errorNotification}
+                            </Text>) : (<Text></Text>)
+                            }
+                        </View>
                     </VStack>
-                    <View>
-                        <Text>
-                            {errorNotification}
-                        </Text>
-                    </View>
                 </Box>
             </Center>
         </NativeBaseProvider>
