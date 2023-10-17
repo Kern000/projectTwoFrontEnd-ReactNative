@@ -17,7 +17,7 @@ export default function BlockedNumbers(){
     const [ errorNotification, setErrorNotification] = useState('');
 
     const [searchParams, setSearchParams] = useState('');
-    const [foundSearchNumber, setFoundSearchNumber] = useState('');
+    const [foundSearchNumber, setFoundSearchNumber] = useState();
     const [searchNotification, setSearchNotification] = useState('');
    
     const { blockedNumbers,
@@ -32,14 +32,14 @@ export default function BlockedNumbers(){
       
     async function fetchData(){
         let response = await APIHandler.get(`/entry/${paramsId}/blockedNumbers`);
-        console.log("Fetch blockedNumbers data=>", response.data);
+        console.log("Fetched blockedNumbers data=>", response.data);
         setBlockedNumbers(response.data);
     }
 
     useEffect(() => {
         try{
             fetchData();
-            console.log("from blocked numbers component, blocked numbers", whiteList)
+            console.log("from blocked numbers component, blocked numbers use effect end here")
         } catch (error) {
             console.error('Failed to retrieve data: ', error)
         }  
@@ -166,13 +166,14 @@ export default function BlockedNumbers(){
                                         w='180'
                                         mt="3"
                                         ml="3"
-                                        mb="2"
+                                        mb="3"
                                 />
                                 <Text style={listingsStyles.subtitle}>
                                     Add Block Number
                                 </Text>
                                 <Button w="20"
                                         ml="3"
+                                        mb="3"
                                         onPress={()=>addBlockedNumber(blockedNumberToAdd)}>
                                     Add
                                 </Button>
@@ -182,7 +183,9 @@ export default function BlockedNumbers(){
                             </VStack>
                         </View>
                         <View>
-                            <Text style={listingsStyles.subtitle}>
+                            <Text   style={listingsStyles.subtitle}
+                                    mb="3"
+                            >
                                 Search For Blocked Number
                             </Text>
                             <VStack>
@@ -191,28 +194,32 @@ export default function BlockedNumbers(){
                                         w='180'
                                         mt="3"
                                         ml="3"
-                                        mb="2"
+                                        mb="3"
                                 />
                                 <Button w="20"
                                         ml="3"
+                                        mb="3"
                                         onPress={()=>searchFullNumber(searchParams)}
                                         style={{fontSize:'10px'}}   
                                     >
                                     Full No.
                                 </Button>
-                                <Divider></Divider>
-                                <View>
+                                <View style={{marginTop:'10px'}}>
+                                    <Text>
                                     Or Filter based on:
+                                    </Text>
                                 </View>
-                                <Button w="50"
+                                <Button w="100"
                                         ml="3"
+                                        mb="3"
                                         onPress={()=>searchPlusNumber()}
                                         style={{fontSize:'10px'}}
                                 >
                                     find all '+' nos.
                                 </Button>
-                                <Button w="50"
+                                <Button w="100"
                                         ml="3"
+                                        mb="3"
                                         onPress={()=>searchMinusNumber()}
                                         style={{fontSize:'10px'}}
                                 >
@@ -225,12 +232,16 @@ export default function BlockedNumbers(){
                         </View>
                         <View>
                             <View>
-                                {searchNotification}
+                                <Text>
+                                    {searchNotification}
+                                </Text>
                             </View>
                         {foundSearchNumber?.map((foundSearchNumber, index) => (
                             <View>
                                 <View>
-                                    Search Results
+                                    <Text>
+                                        Search Results
+                                    </Text>
                                 </View>
                                 <FormControl key={index}
                                 >
@@ -250,7 +261,7 @@ export default function BlockedNumbers(){
                         ))}
                         </View>
                         <View>
-                        <Heading>
+                            <Heading>
                                 Blocked Numbers
                             </Heading>
                         </View>

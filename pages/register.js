@@ -51,6 +51,8 @@ export default function Example() {
 
   const handleSuccessfulRegistration = async (emailAddress, idToken) => {
 
+    console.log('handle successful registration hit');
+
     await setAuthHeader(idToken);
 
     try {
@@ -62,12 +64,14 @@ export default function Example() {
         setParamsId(paramsId);
         console.log('paramsId:', paramsId)
 
+        localStorage.setItem("token", idToken);
         await AsyncStorage.setItem("token", idToken);
 
         navigateToSettings();
 
       } catch (error) {
         console.log('/user/register encountered error', error);
+        setErrorNotification('Email already in use')
         clearAuthHeader();
     }
   }

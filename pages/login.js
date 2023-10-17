@@ -53,6 +53,8 @@ export default function Login (){
         console.log('handleLogin', emailAddress)
         console.log('idtoken123', idToken)
 
+        localStorage.setItem('token', idToken)
+
         try{
             let response = await APIHandler.post("/user/login", {'emailAddress':emailAddress, 'idToken':idToken})
 

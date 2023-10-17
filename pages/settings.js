@@ -66,11 +66,10 @@ export default function Settings (){
             const officeNumberValidation = validatePhoneNumber.test(officeNumber);
             const homeNumberValidation = validatePhoneNumber.test(homeNumber);
 
-            console.log(paramsId)
-            setAuthHeader(headersData.idToken)
+            console.log('params id here in frontend', paramsId);
+            console.log('headersData.idToken here', headersData.idToken);
+            setAuthHeader(headersData.idToken);
             
-            // updateCountryCode()
-
             if (countryCodeValidation){
                 console.log("called countryCode form")
                 await APIHandler.post(`/entry/${paramsId}/countryCode`, 
@@ -79,12 +78,14 @@ export default function Settings (){
                         'timeStamp': Date.now()
                     }
                 );
+                
             } else {
                 setCountryCodeError('invalid country code');
                 return;
             }
             
             if (hpNumberValidation) {
+                console.log('hp number validation hit')
                 await APIHandler.patch(`/entry/${paramsId}/hpNumber`, {'hpNumber': hpNumber});
             } else {
                 setPhoneNumberError('invalid hp number');
@@ -92,6 +93,7 @@ export default function Settings (){
             }
 
             if (officeNumberValidation){
+                console.log('office number validation hit')
                 await APIHandler.patch(`/entry/${paramsId}/officeNumber`, {'officeNumber': officeNumber});
             } else {
                 setPhoneNumberError('invalid office number');
@@ -99,12 +101,14 @@ export default function Settings (){
             }
 
             if (homeNumberValidation) {
+                console.log('home number validation hit')
                 await APIHandler.patch(`/entry/${paramsId}/homeNumber`, {'homeNumber': homeNumber});
             } else {
                 setPhoneNumberError('invalid home number');
                 return;
             }
-            // navigateToMain();
+            
+            navigateToMain();
 
         } catch(error) {
             console.error('cannot save data', error)
