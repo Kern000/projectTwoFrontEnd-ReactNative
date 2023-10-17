@@ -89,9 +89,12 @@ export default function BlockedNumbers(){
             try{
                 let response = await APIHandler.get(`/entry/${paramsId}/blockedNumbers/blockedNumber?search=${searchParams}`);
                 console.log(response.data);
-                setFoundSearchNumber(response.data); 
+                setFoundSearchNumber(response.data);
+                if (response.data.length === 0){
+                    setSearchNotification("No matching number found")
+                }
             } catch {
-                setSearchNotification('No matching number found');
+                setSearchNotification('Error fetching searched number');
             }
         } else {
             setSearchNotification('invalid number format');
@@ -103,11 +106,18 @@ export default function BlockedNumbers(){
         setErrorNotification('');
 
         try {
+            setFoundSearchNumber();
             let response = await APIHandler.get(`/entry/${paramsId}/blockedNumbers/blockedNumber/searchPlus`)
-            console.log('response.data here', response.data);
-            setFoundSearchNumber(response.data);
+            console.log('response.data here for search plus', response.data);
+            if (response.data.length !== 0){
+                let array = response.data.map(item => item.blockedNumbers)
+                console.log('modified array here', array)
+                setFoundSearchNumber(array);
+            } else {    
+                setSearchNotification('No matching numbers')
+            }
         } catch (error) {
-            setSearchNotification('No matching numbers');
+            setSearchNotification('Error in search');
         }
 
     }
@@ -117,11 +127,18 @@ export default function BlockedNumbers(){
         setErrorNotification('');
 
         try{
+            setFoundSearchNumber();
             let response = await APIHandler.get(`/entry/${paramsId}/blockedNumbers/blockedNumber/searchMinus`)
-            console.log('response.data here', response.data);
-            setFoundSearchNumber(response.data);
+            console.log('response.data here for search minus', response.data);
+            if (response.data.length !== 0){
+                let array = response.data.map(item => item.blockedNumbers)
+                console.log('modified array here', array)
+                setFoundSearchNumber(array);
+            } else {
+                setSearchNotification('No matching numbers');
+            }
         } catch (error) {
-            setSearchNotification('No matching numbers');
+            setSearchNotification('Error searching for numbers');
         }
     }
 
@@ -226,29 +243,39 @@ export default function BlockedNumbers(){
                                     {searchNotification}
                                 </Text>
                             </View>
-                        {foundSearchNumber?.map((foundSearchNumber, index) => (
-                            <View>
+                            {foundSearchNumber? (
                                 <View>
-                                    <Text ml="3" mb="2" style={{fontSize:'14px', fontWeight:"400", textDecorationLine:"underline"}}>
-                                        Search Results
+                                    <Text   style={{fontSize:'23px', fontWeight:'600', textDecorationLine:'underline'}}
+                                            mb="3"
+                                            ml="3"
+                                            >
+                                                Search Results
                                     </Text>
                                 </View>
-                                <FormControl key={index}
-                                >
-                                    <VStack>
-                                            <Text style={listingsStyles.listing}>
-                                                Number: {foundSearchNumber.blockedNumber}
-                                            </Text>
-                                            <Button onPress={()=>handleNumberToWhiteList(foundSearchNumber.blockedNumber)}
-                                                w="100"
-                                                ml="2"
-                                            >
-                                                white list
-                                            </Button>
-                                    </VStack>
-                                </FormControl>
-                            </View>
-                        ))}
+                                ) : (<View></View>)
+                            }
+                            {foundSearchNumber?
+                                (foundSearchNumber.map((foundSearchNumber, index) => (                            
+                                    <View>
+                                        <FormControl key={index}>
+                                            <VStack>
+                                                    <Text style={listingsStyles.listing}
+                                                        ml="2"
+                                                    >
+                                                        Number: {foundSearchNumber.blockedNumber}
+                                                    </Text>
+                                                    <Button onPress={()=>handleNumberToWhiteList(foundSearchNumber.blockedNumber)}
+                                                        w="100"
+                                                        ml="2"
+                                                        mb="3"
+                                                    >
+                                                        white list
+                                                    </Button>
+                                            </VStack>
+                                        </FormControl>
+                                    </View>
+                                    ))
+                                ): (<View><Text></Text></View>)}
                         </View>
                         <View>
                             <Heading ml="3">
