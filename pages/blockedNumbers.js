@@ -102,8 +102,6 @@ export default function BlockedNumbers(){
 
         setErrorNotification('');
 
-        const blockedNumberValidation = validatePhoneNumber.test(number);
-
         if (blockedNumberValidation){
             try {
                 let response = await APIHandler.get(`/entry/${paramsId}/blockedNumbers/blockedNumber/searchPlus`)
@@ -120,8 +118,6 @@ export default function BlockedNumbers(){
     const searchMinusNumber = async () => {
 
         setErrorNotification('');
-
-        const blockedNumberValidation = validatePhoneNumber.test(number);
 
         if (blockedNumberValidation) {
             try{
@@ -168,7 +164,7 @@ export default function BlockedNumbers(){
                                         ml="3"
                                         mb="3"
                                 />
-                                <Text style={listingsStyles.subtitle}>
+                                <Text mb="2" style={listingsStyles.subtitle}>
                                     Add Block Number
                                 </Text>
                                 <Button w="20"
@@ -184,7 +180,7 @@ export default function BlockedNumbers(){
                         </View>
                         <View>
                             <Text   style={listingsStyles.subtitle}
-                                    mb="3"
+                                    mb="1"
                             >
                                 Search For Blocked Number
                             </Text>
@@ -205,9 +201,11 @@ export default function BlockedNumbers(){
                                     Full No.
                                 </Button>
                                 <View style={{marginTop:'10px'}}>
-                                    <Text>
+                                    <Heading    style={{textDecorationLine:'underline'}}
+                                                mb="2"
+                                    >
                                     Or Filter based on:
-                                    </Text>
+                                    </Heading>
                                 </View>
                                 <Button w="100"
                                         ml="3"

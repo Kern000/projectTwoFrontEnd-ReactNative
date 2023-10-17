@@ -57,10 +57,12 @@ export default function Login (){
 
         try{
             let response = await APIHandler.post("/user/login", {'emailAddress':emailAddress, 'idToken':idToken})
+            console.log('response during login here', response.data);
 
             setUserName(emailAddress);
 
             const paramsId = response.data;
+            console.log('paramsId at login here', paramsId);
             setParamsId(paramsId);
 
             console.log('Login Successful', paramsId);
@@ -68,6 +70,7 @@ export default function Login (){
 
         } catch(error) {
             console.log('/user/login encountered error', error);
+            setErrorNotification('User login failed, register an account')
             clearAuthHeader();
         }
     }
