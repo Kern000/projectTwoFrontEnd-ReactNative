@@ -102,33 +102,26 @@ export default function BlockedNumbers(){
 
         setErrorNotification('');
 
-        if (blockedNumberValidation){
-            try {
-                let response = await APIHandler.get(`/entry/${paramsId}/blockedNumbers/blockedNumber/searchPlus`)
-                console.log('response.data here', response.data);
-                setFoundSearchNumber(response.data);
-            } catch (error) {
-                setErrorNotification('No matching numbers');
-            }
-        } else {
-            setErrorNotification('invalid number format');
+        try {
+            let response = await APIHandler.get(`/entry/${paramsId}/blockedNumbers/blockedNumber/searchPlus`)
+            console.log('response.data here', response.data);
+            setFoundSearchNumber(response.data);
+        } catch (error) {
+            setSearchNotification('No matching numbers');
         }
+
     }
     
     const searchMinusNumber = async () => {
 
         setErrorNotification('');
 
-        if (blockedNumberValidation) {
-            try{
-                let response = await APIHandler.get(`/entry/${paramsId}/blockedNumbers/blockedNumber/searchMinus`)
-                console.log('response.data here', response.data);
-                setFoundSearchNumber(response.data);
-            } catch (error) {
-                setErrorNotification('No matching numbers');
-            }
-        } else {
-            setErrorNotification('invalid number format');
+        try{
+            let response = await APIHandler.get(`/entry/${paramsId}/blockedNumbers/blockedNumber/searchMinus`)
+            console.log('response.data here', response.data);
+            setFoundSearchNumber(response.data);
+        } catch (error) {
+            setSearchNotification('No matching numbers');
         }
     }
 
@@ -144,7 +137,7 @@ export default function BlockedNumbers(){
                 <ScrollView>
                     <VStack>
                         <View>
-                            <Link _text={{
+                            <Link ml="1" _text={{
                                             color: 'blue',
                                             bold: true,
                                             fontSize: 'sm'
@@ -164,7 +157,7 @@ export default function BlockedNumbers(){
                                         ml="3"
                                         mb="3"
                                 />
-                                <Text mb="2" style={listingsStyles.subtitle}>
+                                <Text mb="2" ml="3" style={listingsStyles.subtitle}>
                                     Add Block Number
                                 </Text>
                                 <Button w="20"
@@ -180,7 +173,7 @@ export default function BlockedNumbers(){
                         </View>
                         <View>
                             <Text   style={listingsStyles.subtitle}
-                                    mb="1"
+                                    mb="3"
                             >
                                 Search For Blocked Number
                             </Text>
@@ -203,6 +196,7 @@ export default function BlockedNumbers(){
                                 <View style={{marginTop:'10px'}}>
                                     <Heading    style={{textDecorationLine:'underline'}}
                                                 mb="2"
+                                                ml="3"
                                     >
                                     Or Filter based on:
                                     </Heading>
@@ -230,14 +224,14 @@ export default function BlockedNumbers(){
                         </View>
                         <View>
                             <View>
-                                <Text>
+                                <Text style={{color: 'red'}}>
                                     {searchNotification}
                                 </Text>
                             </View>
                         {foundSearchNumber?.map((foundSearchNumber, index) => (
                             <View>
                                 <View>
-                                    <Text>
+                                    <Text style={{fontSize:'18px', fontWeight:"600", textDecorationLine:"underline"}}>
                                         Search Results
                                     </Text>
                                 </View>
