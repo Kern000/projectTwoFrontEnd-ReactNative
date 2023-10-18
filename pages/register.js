@@ -64,7 +64,6 @@ export default function Example() {
           setParamsId(paramsId);
           console.log('paramsId:', paramsId)
 
-          localStorage.setItem("token", idToken);
           await AsyncStorage.setItem("token", idToken);
 
           navigateToSettings();
