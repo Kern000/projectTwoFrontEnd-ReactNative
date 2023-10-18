@@ -19,6 +19,7 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.kern000.projecttwofrontend",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"

@@ -186,7 +186,7 @@ export default function Login (){
                         </HStack>
                         <View>
                             {errorNotification?
-                            (<Text style={{color:'red', fontSize:'16px'}}>
+                            (<Text style={{color:'red', fontSize:16}}>
                                 {errorNotification}
                             </Text>) : (<Text></Text>)
                             }

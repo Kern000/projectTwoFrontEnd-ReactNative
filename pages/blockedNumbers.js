@@ -174,7 +174,7 @@ export default function BlockedNumbers(){
                                         ml="3"
                                         mb="3"
                                 />
-                                <Text mb="3" ml="3" style={{fontSize:'18px', fontWeight:'600', textDecorationLine:'underline'}}>
+                                <Text mb="3" ml="3" style={{fontSize:18, fontWeight:600, textDecorationLine:'underline'}}>
                                     Add Block Number
                                 </Text>
                                 <Button w="20"
@@ -189,7 +189,7 @@ export default function BlockedNumbers(){
                             </VStack>
                         </View>
                         <View>
-                            <Text   style={{fontSize:'18px', fontWeight:'600', textDecorationLine:'underline'}}
+                            <Text   style={{fontSize:18, fontWeight:600, textDecorationLine:'underline'}}
                                     mb="3"
                                     ml="3"
                             >
@@ -207,12 +207,12 @@ export default function BlockedNumbers(){
                                         ml="3"
                                         mb="3"
                                         onPress={()=>searchFullNumber(searchParams)}
-                                        style={{fontSize:'10px'}}   
+                                        style={{fontSize:10}}   
                                     >
                                     Full No.
                                 </Button>
-                                <View style={{marginTop:'10px'}}>
-                                    <Text   style={{fontSize:'18px', fontWeight:'600', textDecorationLine:'underline'}}
+                                <View style={{marginTop:10}}>
+                                    <Text   style={{fontSize:18, fontWeight:600, textDecorationLine:'underline'}}
                                     mb="3"
                                     ml="3"
                                     >                           
@@ -223,7 +223,7 @@ export default function BlockedNumbers(){
                                         ml="3"
                                         mb="3"
                                         onPress={()=>searchPlusNumber()}
-                                        style={{fontSize:'10px'}}
+                                        style={{fontSize:10}}
                                 >
                                     find all '+' nos.
                                 </Button>
@@ -231,7 +231,7 @@ export default function BlockedNumbers(){
                                         ml="3"
                                         mb="3"
                                         onPress={()=>searchMinusNumber()}
-                                        style={{fontSize:'10px'}}
+                                        style={{fontSize:10}}
                                 >
                                     find all '-' nos.
                                 </Button>
@@ -246,9 +246,10 @@ export default function BlockedNumbers(){
                             <View>
                             {foundSearchNumber? (
                                 <View>
-                                    <Text   style={{fontSize:'23px', fontWeight:'600', textDecorationLine:'underline'}}
+                                    <Text   style={{fontSize:21, fontWeight:600, textDecorationLine:'underline'}}
                                             mb="3"
                                             ml="3"
+                                            mt="1"
                                             >
                                                 Search Results
                                     </Text>
@@ -258,9 +259,9 @@ export default function BlockedNumbers(){
                             </View>
                             <View>
                             {foundSearchNumber?
-                                (foundSearchNumber.map((foundSearchNumber, index) => (                            
-                                    <View>
-                                        <FormControl key={index}>
+                                (foundSearchNumber.map((foundSearchNumber) => (                            
+                                    <View key={foundSearchNumber._id}>
+                                        <FormControl>
                                             <VStack>
                                                     <Text style={listingsStyles.listing}
                                                         ml="2"
@@ -286,10 +287,9 @@ export default function BlockedNumbers(){
                                 Blocked Numbers
                             </Heading>
                         </View>
-                        {blockedNumbers?.map((blockedNumberEntry, index) => (
-                            <View>
-                                <FormControl key={index}
-                                >
+                        {blockedNumbers?.map((blockedNumberEntry) => (
+                            <View key={blockedNumberEntry._id}>
+                                <FormControl>
                                     <VStack>
                                             <Text style={listingsStyles.listing} ml="3">
                                                 Number: {blockedNumberEntry.blockedNumber}

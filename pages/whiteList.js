@@ -121,10 +121,9 @@ export default function WhiteList (){
                                 WhiteList
                             </Heading>
                         </View>
-                        {whiteList?.map((whiteListEntry, index) => (
-                            <View>
-                                <FormControl key={index}
-                                >
+                        {whiteList?.map((whiteListEntry) => (
+                            <View key={whiteListEntry._id}>
+                                <FormControl>
                                     <VStack>
                                         <Text style={listingsStyles.listing}>
                                             Number: {whiteListEntry.whiteListedNumber}

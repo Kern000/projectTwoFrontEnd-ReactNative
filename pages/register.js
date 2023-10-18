@@ -54,8 +54,10 @@ export default function Example() {
     console.log('handle successful registration hit');
     try {
       await setAuthHeader(idToken);
+      console.log('set auth header completed')
     
       try {
+          console.log('using API hit')
           let response = await APIHandler.post("/user/register", {'emailAddress': emailAddress})
           
           setUserName(emailAddress);
@@ -142,7 +144,7 @@ export default function Example() {
                         Email
                       </FormControl.Label>
                       <Input  name="emailAddress"
-                                  value={userFormData.emailAddress}
+                                  value={userFormData.emailAddress.toString()}
                                   onChangeText={(value)=>updateFormField('emailAddress', value)}
                       />
                     </FormControl>
@@ -157,7 +159,7 @@ export default function Example() {
                       </FormControl.Label>
                       <Input  type="password" 
                               name="password"
-                              value={userFormData.password}
+                              value={userFormData.password.toString()}
                               onChangeText={(value)=>updateFormField('password', value)}
                       />
                     </FormControl>
@@ -172,7 +174,7 @@ export default function Example() {
                       </FormControl.Label>
                       <Input  type="password"
                               name="passwordConfirmation"
-                              value={userFormData.passwordConfirmation}
+                              value={userFormData.passwordConfirmation.toString()}
                               onChangeText={(value)=>updateFormField('passwordConfirmation', value)}
                       />
                     </FormControl>
@@ -199,7 +201,7 @@ export default function Example() {
                       </HStack>
                       <View>
                         {errorNotification?
-                          (<Text style={{color:'red', fontSize:'16px'}}>
+                          (<Text style={{color:'red', fontSize:16}}>
                             {errorNotification}
                           </Text>) : (<Text></Text>)
                         }

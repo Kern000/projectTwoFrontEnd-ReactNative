@@ -88,7 +88,7 @@ export const linkToPreviousPageStyles = StyleSheet.create({
 export const listingsStyles = StyleSheet.create({
     listing:    {
                     color: 'black',
-                    fontsize: 15,
+                    fontSize: 15,
                     marginLeft: 5,
                     marginBottom: 3,
                     marginTop: 3
