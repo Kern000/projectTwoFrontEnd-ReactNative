@@ -13,11 +13,6 @@ export const setAuthHeader = async (token) => {
     if (await AsyncStorage.getItem("token")){
         let token1 = await AsyncStorage.getItem("token");
         headersData["Authorization"] = `Bearer ${token1}`;
-
-    } else if (localStorage.getItem("token")){
-        let token2 = localStorage.getItem("token")
-        headersData["Authorization"] = `Bearer ${token2}`;
-    }
     else { 
         headersData["Authorization"] = `Bearer ${token}`;
         await AsyncStorage.setItem("token", token);
