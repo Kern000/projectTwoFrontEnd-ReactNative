@@ -10,6 +10,7 @@ Then enter the following url in the app or scan the below QR code.
 <h5> Or if you would like to skip straight to viewing the app, scroll down to the "Design" Section below. </h5>
 
 Expo QR Code here - Requires Expo App
+
 <img src="./assets/qr-code.jpg" alt="QR-code-to-access" width="300"/>
 
 Backend source codes can be accessed here: <a href="https://github.com/Kern000/projectTwoBackendServer"> Backend Project Two </a>
