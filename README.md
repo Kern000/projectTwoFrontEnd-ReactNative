@@ -89,7 +89,7 @@ Simple colors and backgrounds were used for easy customizability as this was mea
 <h3> Test Cases </h3>
 Test Name: Register email and password </br>
 Test case: key in a valid email format ("XXXX"@"mail".com) and password and submit. </br>
-Expected outcome: Registration should be successful and user is redirected to login by Firebase. </br></br>
+Expected outcome: Registration should be successful and user automatically logged in and sent to "settings" page. </br></br>
 
 Test Name: Login email and password </br>
 Test case: key in a valid email format ("XXXX"@"mail".com) and password and submit. </br>
