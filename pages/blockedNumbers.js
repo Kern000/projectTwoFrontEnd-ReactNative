@@ -1,6 +1,6 @@
 import { useState, useContext, useCallback, useEffect } from 'react';
 import { ScrollView, View } from 'react-native';
-import { NativeBaseProvider, Heading, VStack, FormControl, Button, Text, Link, Input, HStack, Divider } from "native-base";
+import { NativeBaseProvider, Heading, VStack, FormControl, Button, Text, Link, Input } from "native-base";
 
 import { UserContext } from '../context/userContext';
 import { SettingsContext } from '../context/settingsContext';
@@ -42,7 +42,7 @@ export default function BlockedNumbers(){
             console.log("from blocked numbers component, blocked numbers use effect end here")
         } catch (error) {
             console.error('Failed to retrieve data: ', error)
-        }  
+        }
     },[foundSearchNumber])
 
     const validatePhoneNumber = /^[0-9+ -]{0,15}$/;
@@ -243,6 +243,7 @@ export default function BlockedNumbers(){
                                     {searchNotification}
                                 </Text>
                             </View>
+                            <View>
                             {foundSearchNumber? (
                                 <View>
                                     <Text   style={{fontSize:'23px', fontWeight:'600', textDecorationLine:'underline'}}
@@ -254,6 +255,8 @@ export default function BlockedNumbers(){
                                 </View>
                                 ) : (<View></View>)
                             }
+                            </View>
+                            <View>
                             {foundSearchNumber?
                                 (foundSearchNumber.map((foundSearchNumber, index) => (                            
                                     <View>
@@ -276,6 +279,7 @@ export default function BlockedNumbers(){
                                     </View>
                                     ))
                                 ): (<View><Text></Text></View>)}
+                            </View>
                         </View>
                         <View>
                             <Heading ml="3">

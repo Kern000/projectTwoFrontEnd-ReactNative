@@ -107,10 +107,10 @@ export default function Example() {
     })
     .catch((error) => {
         console.log("Firebase Error:", error.code, error.message);
-        setErrorNotification('Email already in use')
+        setErrorNotification('Firebase error')
     })
   }
-      
+  
   return (
             <NativeBaseProvider>
               <View>
