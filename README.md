@@ -1,6 +1,6 @@
 <h2> Scam Call Blocker Mockup </h2>
 
-This app runs on Android (or web - though not recommended. It may work for iOS as compatible packages were used but it has not been tested) - (* Also due to free hosting, the page after login/registration may take a few tries to access. Continue pressing the 'login' or 'registration' button or you may look at the navigation in the "Design" section below)
+This app runs on Android. The app runs on free server and thus may lead to some waiting time between screens.
 
 <h3> Steps to use app </h3>
 
@@ -9,9 +9,8 @@ Then enter the following url in the app or scan the below QR code.
 
 <h5> Or if you would like to skip straight to viewing the app, scroll down to the "Design" Section below. </h5>
 
-exp://u.expo.dev/update/07839213-5fd3-4440-998d-498c7cee413f
-
-<img src="./assets/qr-code.jpg" alt="QR-code-to-access" width="200"/>
+Expo QR Code here - Requires Expo App
+<img src="./assets/qr-code.jpg" alt="QR-code-to-access" width="300"/>
 
 Backend source codes can be accessed here: <a href="https://github.com/Kern000/projectTwoBackendServer"> Backend Project Two </a>
 
@@ -74,21 +73,17 @@ Simple colors and backgrounds were used for easy customizability as this was mea
 
 <h3> Key Capabilities Tested </h3>
 
-1. There is FrontEnd regex validation for all input fields to prevent XSS injections. Mongoose (MongoDB) schema perform backend validation to prevent unwanted and bad datasets from impairing data usage. Error messages on the frontend communicates user error and guides users to take corrective actions.
+1. There is FrontEnd regex validation for all input fields to prevent XSS injections. Mongoose (MongoDB) schema perform backend validation to prevent unwanted and bad datasets from impairing data usage. Joi middleware perform validation on all post requests at the controller level. Error messages on the frontend communicates user error and guides users to take corrective actions.
 
 2. Stack navigator stacks screens based on user paths to prevent unnecessary unmounting and re-rendering of screens. While mounting many screens could lead to stack overflow, the page flow is designed to limit the maximum number of stacks even when using deeply nested pages.
 
-3. React native touchables have been incorporate for better UI/UX.
+3. There is real time update to the frontend user from the database with regard to their lists of blocked number, whitelisted country codes, and whitelisted numbers. Optional chaining of the .map function is also employed to give flexibility in the rendering the reloaded data. This is because the data fetching is not instantaneous, therefore, react has to give time before rendering.
 
-4. There is real time update to the frontend user from the database with regard to their lists of blocked number, whitelisted country codes, and whitelisted numbers. Optional chaining of the .map function is also employed to give flexibility in the rendering the reloaded data. This is because the data fetching is not instantaneous, therefore, react has to give time before rendering.
+4. Landing page communicates the clear purpose of the App and navigates to the main page after a short period of time or if the user presses on the screen.
 
-5. Landing page communicates the clear purpose of the App and navigates to the main page after a short period of time or if the user presses on the screen.
+5. Backend server is separated into the schema layer, service layer (includes the Data Access Layer), controller layer for sending http responses and data for frontend use, router layer, and middleware for firebase authorization based on Json web token. All these lead to better abstraction and separation of concerns and code reuseability.
 
-6. Backend server is separated into the schema layer, service layer (includes the Data Access Layer), controller layer for sending http responses and data for frontend use, router layer, and middleware for firebase authorization based on Json web token. All these lead to better abstraction and separation of concerns and code reuseability.
-
-7. Both referencing and embedding structure is incorporated in MongoDB. User document is linked to data entry documents, which may contain lightly nested arrays. This structure allows sharding and adaptation to different user needs based on their entries. This allows for fast retrieval of data as documents can be indexed based on their users rather than the data entry fields which may be large in numbers. These allow horizontal scalability without sacrificing the app's performance.
-
-8. Lastly, both Firebase and MongoDb schema require unique emails. This prevents users from using the same email to form multiple accounts on the application.
+6. Both referencing and embedding structure is incorporated in MongoDB. User document is linked to data entry documents, which may contain lightly nested arrays. This structure allows sharding and adaptation to different user needs based on their entries. This allows for fast retrieval of data as documents can be indexed based on their users rather than the data entry fields which may be large in numbers. These allow horizontal scalability without sacrificing the app's performance.
 
 <h3> Test Cases </h3>
 Test Name: Register email and password </br>
